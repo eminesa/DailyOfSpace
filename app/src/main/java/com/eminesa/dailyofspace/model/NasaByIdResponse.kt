@@ -7,8 +7,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class NasaByIdResponse(
+
     @field:Json(name = "date")
-    val date: Date? = null,
+    val date: String? = null,
 
     @field:Json(name = "explanation")
      val explanation: String? = null,

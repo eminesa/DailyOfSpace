@@ -1,4 +1,4 @@
-package com.eminesa.dailyofspace
+package com.eminesa.dailyofspace.response
 
 import android.os.Parcelable
 import com.eminesa.dailyofspace.enum.ResponseStatus
