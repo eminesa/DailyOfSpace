@@ -1,6 +1,8 @@
 package com.eminesa.dailyofspace.fragment.splash
 
+import android.animation.Animator
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +24,27 @@ class SplashFragment : Fragment() {
         if (binding == null)
             binding = FragmentSplashBinding.inflate(inflater)
 
-        binding?.imgSplash?.setOnClickListener {
-            findNavController().navigate(R.id.action_splashFragment_to_dailyPhotoFragment)
+        binding?.animationView?.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+                Log.i("Animation:", "start")
+            }
 
-        }
+            override fun onAnimationEnd(animation: Animator) {
+                Log.i("Animation:", "end")
+
+                findNavController().navigate(R.id.action_splashFragment_to_dailyPhotoFragment)
+
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+                Log.i("Animation:", "cancel")
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+                Log.i("Animation:", "repeat")
+            }
+        })
+
         return binding?.root
     }
 

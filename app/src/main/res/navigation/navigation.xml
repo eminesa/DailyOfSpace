@@ -9,13 +9,9 @@
         android:id="@+id/splashFragment"
         android:name="com.eminesa.dailyofspace.fragment.splash.SplashFragment"
         android:label="SplashFragment">
-
         <action
             android:id="@+id/action_splashFragment_to_dailyPhotoFragment"
-            app:destination="@id/dailyPhotoFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/navigation_graph" />
-
+            app:destination="@id/dailyPhotoFragment" />
     </fragment>
 
     <fragment

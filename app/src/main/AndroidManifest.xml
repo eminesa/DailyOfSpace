@@ -14,7 +14,6 @@
         android:theme="@style/Theme.DailyOfSpace">
         <activity
             android:name=".activity.MainActivity"
-            android:theme="@style/LauncherFullScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

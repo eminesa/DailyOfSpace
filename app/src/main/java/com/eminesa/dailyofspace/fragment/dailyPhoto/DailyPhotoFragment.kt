@@ -4,17 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.eminesa.dailyofspace.Const.Companion.nasaKey
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
 import com.eminesa.dailyofspace.enum.ResponseStatus
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class DailyPhotoFragment : Fragment() {
 
     private val viewModel: DailyPhotoFragmentViewModel by viewModels()
-     private var binding: FragmentDailyPhotoBinding? = null
+    private var binding: FragmentDailyPhotoBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +34,8 @@ class DailyPhotoFragment : Fragment() {
     }
 
     private fun getVersionFromService() {
-        viewModel.getDailyPhoto("da2QThPK0PiunpjTKv6NUE67Od0L8E78ntl3GuOR").observe(viewLifecycleOwner, { responseVersion ->
+
+        viewModel.getDailyPhoto(nasaKey).observe(viewLifecycleOwner, { responseVersion ->
             when (responseVersion.status) {
                 ResponseStatus.LOADING -> {
                     //internet kontrolu saglaman lazim
@@ -38,7 +44,33 @@ class DailyPhotoFragment : Fragment() {
                     val date = responseVersion.data?.date
                     val explanation = responseVersion.data?.explanation
                     val title = responseVersion.data?.title
+                    val mediaType = responseVersion.data?.media_type
                     val url = responseVersion.data?.url
+
+
+                    binding?.apply {
+                        txtTitle.text = title
+                        txtDescription.text = explanation
+
+                        if (mediaType == "video") {
+
+                            imgSpace.isVisible = false
+                            imgContentOfVideo.isVisible = true
+                            //url?.let { initUI(it) }
+                            //   val youtubePlayerInit = url?.let { initUI(it) }
+                            //   binding?.youtubePlayer?.initialize(youtubeApiKey, youtubePlayerInit)
+
+                        } else {
+                            imgContentOfVideo.isVisible = false
+                            imgSpace.isVisible = true
+                            Glide.with(imgSpace.context)
+                                .load(url)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                // .placeholder(placeHolder)
+                                // .error(placeHolder)
+                                .into(imgSpace)
+                        }
+                    }
                 }
                 ResponseStatus.ERROR -> {
                 }
@@ -50,5 +82,32 @@ class DailyPhotoFragment : Fragment() {
         binding = null
         super.onDestroy()
     }
+
+
+    /* private fun initUI(video: String): YouTubePlayer.OnInitializedListener {
+         return object : YouTubePlayer.OnInitializedListener {
+             override fun onInitializationSuccess(
+                 p0: YouTubePlayer.Provider?,
+                 youtubePlayer: YouTubePlayer?,
+                 p2: Boolean
+             ) {
+                 //kod hatasız olursa onInitializationSuccess implament metodu çalışacak
+                 youtubePlayer?.loadVideo(video)
+             }
+
+             override fun onInitializationFailure(
+                 p0: YouTubePlayer.Provider?,
+                 p1: YouTubeInitializationResult?
+             ) {
+                 //Eğer hatalı olursa da onInitializationFailure bu implament metodu çalışacak
+                 Toast.makeText(
+                     requireContext(),
+                     getString(R.string.something_was_wrong),
+                     Toast.LENGTH_LONG
+                 ).show()
+             }
+         }
+
+     }*/
 
 }
