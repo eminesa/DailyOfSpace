@@ -15,7 +15,7 @@
     </style>
 
     <style name="LauncherFullScreen" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowBackground">@color/space_gray</item>
+<!--        <item name="android:windowBackground">@color/space_gray</item>-->
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
