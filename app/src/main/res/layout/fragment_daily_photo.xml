@@ -9,11 +9,16 @@
     android:background="@color/black"
     tools:context=".fragment.dailyPhoto.DailyPhotoFragment">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/img_space"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center" />
+        app:zoomage_animateOnReset="true"
+        app:zoomage_autoCenter="true"
+        app:zoomage_autoResetMode="UNDER"
+        app:zoomage_restrictBounds="true"
+        app:zoomage_translatable="true"
+        app:zoomage_zoomable="true" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_download"
@@ -72,8 +77,8 @@
         app:srcCompat="@drawable/ic_astronaut" />
 
     <FrameLayout
-        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
         android:id="@+id/youtube_layout"
+        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"

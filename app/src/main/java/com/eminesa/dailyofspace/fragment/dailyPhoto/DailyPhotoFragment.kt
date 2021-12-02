@@ -27,11 +27,13 @@ class DailyPhotoFragment : Fragment() {
             binding = FragmentDailyPhotoBinding.inflate(inflater)
 
         if (arguments != null) {
+
             val date = arguments?.getString("date")
             val explanation = arguments?.getString("explanation")
             val title = arguments?.getString("title")
             val mediaType = arguments?.getString("media_type")
             val url = arguments?.getString("url")
+
             binding?.apply {
                 txtTitle.text = title
                 txtDescription.text = explanation
