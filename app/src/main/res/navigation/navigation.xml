@@ -11,7 +11,10 @@
         android:label="SplashFragment">
         <action
             android:id="@+id/action_splashFragment_to_dailyPhotoFragment"
-            app:destination="@id/dailyPhotoFragment" />
+            app:destination="@id/dailyPhotoFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

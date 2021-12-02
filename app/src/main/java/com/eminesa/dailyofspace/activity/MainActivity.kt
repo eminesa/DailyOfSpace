@@ -3,10 +3,13 @@ package com.eminesa.dailyofspace.activity
 import android.app.DownloadManager
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.databinding.ActivityMainBinding
+import com.google.android.youtube.player.YouTubeInitializationResult
+import com.google.android.youtube.player.YouTubePlayer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,6 +43,32 @@ class MainActivity : AppCompatActivity() {
         val manager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         manager.enqueue(request)
     }
+
+   fun initUI(videoUrl: String): YouTubePlayer.OnInitializedListener {
+       return object : YouTubePlayer.OnInitializedListener {
+           override fun onInitializationSuccess(
+               p0: YouTubePlayer.Provider?,
+               youtubePlayer: YouTubePlayer?,
+               p2: Boolean
+           ) {
+               //kod hatasız olursa onInitializationSuccess implament metodu çalışacak
+               youtubePlayer?.loadVideo(videoUrl)
+           }
+
+           override fun onInitializationFailure(
+               p0: YouTubePlayer.Provider?,
+               p1: YouTubeInitializationResult?
+           ) {
+               //Eğer hatalı olursa da onInitializationFailure bu implament metodu çalışacak
+               Toast.makeText(
+                   this@MainActivity,
+                   getString(R.string.something_was_wrong),
+                   Toast.LENGTH_LONG
+               ).show()
+           }
+       }
+
+   }
 
     override fun onDestroy() {
         mainBinding = null

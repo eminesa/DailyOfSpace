@@ -7,20 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.eminesa.dailyofspace.Const.Companion.nasaKey
 import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.activity.MainActivity
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
-import com.eminesa.dailyofspace.enum.ResponseStatus
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DailyPhotoFragment : Fragment() {
 
-    private val viewModel: DailyPhotoFragmentViewModel by viewModels()
     private var binding: FragmentDailyPhotoBinding? = null
 
     override fun onCreateView(
@@ -30,61 +26,50 @@ class DailyPhotoFragment : Fragment() {
         if (binding == null)
             binding = FragmentDailyPhotoBinding.inflate(inflater)
 
-        getImageOrVideo()
-        binding?.setOnClickListener()
-        return binding?.root
-    }
+        if (arguments != null) {
+            val date = arguments?.getString("date")
+            val explanation = arguments?.getString("explanation")
+            val title = arguments?.getString("title")
+            val mediaType = arguments?.getString("media_type")
+            val url = arguments?.getString("url")
+            binding?.apply {
+                txtTitle.text = title
+                txtDescription.text = explanation
 
-    private fun getImageOrVideo() {
+                if (mediaType == "video") {
+                    //https://www.youtube.com/embed/VYWjxvm14Pk?rel=0
+                    imgSpace.isVisible = false
+                    imgContentOfVideo.isVisible = true
+                    imgDownload.isVisible = false
+                    constraintInfo.isVisible = false
 
-        viewModel.getDailyPhoto(nasaKey).observe(viewLifecycleOwner, { responseVersion ->
-            when (responseVersion.status) {
-                ResponseStatus.LOADING -> {
-                    //internet kontrolu saglaman lazim
-                }
-                ResponseStatus.SUCCESS -> {
-                    val date = responseVersion.data?.date
-                    val explanation = responseVersion.data?.explanation
-                    val title = responseVersion.data?.title
-                    val mediaType = responseVersion.data?.media_type
-                    val url = responseVersion.data?.url
+                    //url?.let { initUI(it) }
+                    //   val youtubePlayerInit = url?.let { initUI(it) }
+                    //   binding?.youtubePlayer?.initialize(youtubeApiKey, youtubePlayerInit)
+                } else {
 
-                    binding?.apply {
-                        txtTitle.text = title
-                        txtDescription.text = explanation
+                    imgDownload.isVisible = true
+                    imgContentOfVideo.isVisible = false
+                    imgSpace.isVisible = true
 
-                        if (mediaType == "video") {
-                            //https://www.youtube.com/embed/VYWjxvm14Pk?rel=0
-                            imgSpace.isVisible = false
-                            imgContentOfVideo.isVisible = true
-                            imgDownload.isVisible = false
-                            //url?.let { initUI(it) }
-                            //   val youtubePlayerInit = url?.let { initUI(it) }
-                            //   binding?.youtubePlayer?.initialize(youtubeApiKey, youtubePlayerInit)
-                        } else {
-                            imgDownload.isVisible = true
-                            imgContentOfVideo.isVisible = false
-                            imgSpace.isVisible = true
-                            Glide.with(imgSpace.context)
-                                .load(url)
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .placeholder(R.drawable.ic_astronaut)
-                                .error(R.drawable.ic_astronaut)
-                                .into(imgSpace)
+                    Glide.with(imgSpace.context)
+                        .load(url)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .placeholder(R.drawable.ic_astronaut)
+                        .error(R.drawable.ic_astronaut)
+                        .into(imgSpace)
 
-                            imgDownload.setOnClickListener {
-
-                                url?.let { urlWithLet ->
-                                    (activity as MainActivity?)?.downloadFile(urlWithLet)
-                                }
-                            }
+                    imgDownload.setOnClickListener {
+                        url?.let { urlWithLet ->
+                            (activity as MainActivity?)?.downloadFile(urlWithLet)
                         }
                     }
                 }
-                ResponseStatus.ERROR -> {
-                }
             }
-        })
+        }
+
+        binding?.setOnClickListener()
+        return binding?.root
     }
 
     private fun FragmentDailyPhotoBinding.setOnClickListener() {
@@ -103,31 +88,5 @@ class DailyPhotoFragment : Fragment() {
         binding = null
         super.onDestroy()
     }
-
-    /* private fun initUI(video: String): YouTubePlayer.OnInitializedListener {
-         return object : YouTubePlayer.OnInitializedListener {
-             override fun onInitializationSuccess(
-                 p0: YouTubePlayer.Provider?,
-                 youtubePlayer: YouTubePlayer?,
-                 p2: Boolean
-             ) {
-                 //kod hatasız olursa onInitializationSuccess implament metodu çalışacak
-                 youtubePlayer?.loadVideo(video)
-             }
-
-             override fun onInitializationFailure(
-                 p0: YouTubePlayer.Provider?,
-                 p1: YouTubeInitializationResult?
-             ) {
-                 //Eğer hatalı olursa da onInitializationFailure bu implament metodu çalışacak
-                 Toast.makeText(
-                     requireContext(),
-                     getString(R.string.something_was_wrong),
-                     Toast.LENGTH_LONG
-                 ).show()
-             }
-         }
-
-     }*/
 
 }
