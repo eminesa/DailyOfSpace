@@ -61,6 +61,8 @@ dependencies {
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
 
     //Retrofit Logging
+    implementation 'com.liulishuo.okdownload:okdownload:1.0.5'
+    implementation 'com.liulishuo.okdownload:okhttp:1.0.5'
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
 
     // Coroutine

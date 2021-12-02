@@ -1,8 +1,5 @@
 package com.eminesa.dailyofspace.fragment.dailyPhoto
 
-import android.graphics.Color
-import android.graphics.LinearGradient
-import android.graphics.Shader
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -15,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.eminesa.dailyofspace.Const.Companion.nasaKey
 import com.eminesa.dailyofspace.R
+import com.eminesa.dailyofspace.activity.MainActivity
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
 import com.eminesa.dailyofspace.enum.ResponseStatus
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,11 +57,12 @@ class DailyPhotoFragment : Fragment() {
                             //https://www.youtube.com/embed/VYWjxvm14Pk?rel=0
                             imgSpace.isVisible = false
                             imgContentOfVideo.isVisible = true
+                            imgDownload.isVisible = false
                             //url?.let { initUI(it) }
                             //   val youtubePlayerInit = url?.let { initUI(it) }
                             //   binding?.youtubePlayer?.initialize(youtubeApiKey, youtubePlayerInit)
-
                         } else {
+                            imgDownload.isVisible = true
                             imgContentOfVideo.isVisible = false
                             imgSpace.isVisible = true
                             Glide.with(imgSpace.context)
@@ -72,6 +71,13 @@ class DailyPhotoFragment : Fragment() {
                                 .placeholder(R.drawable.ic_astronaut)
                                 .error(R.drawable.ic_astronaut)
                                 .into(imgSpace)
+
+                            imgDownload.setOnClickListener {
+
+                                url?.let { urlWithLet ->
+                                    (activity as MainActivity?)?.downloadFile(urlWithLet)
+                                }
+                            }
                         }
                     }
                 }
@@ -79,20 +85,6 @@ class DailyPhotoFragment : Fragment() {
                 }
             }
         })
-    }
-
-    fun FragmentDailyPhotoBinding.setGradient() {
-        val paint = txtDescription.paint
-        val width = paint.measureText(txtDescription.text.toString())
-        val textShader: Shader = LinearGradient(
-            0f, 0f, width, txtDescription.textSize, intArrayOf(
-                Color.parseColor("#F97C3C"),
-                Color.parseColor("#FDB54E"),
-                Color.parseColor("#8446CC")
-            ), null, Shader.TileMode.REPEAT
-        )
-
-        txtDescription.paint.shader = textShader
     }
 
     private fun FragmentDailyPhotoBinding.setOnClickListener() {
