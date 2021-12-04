@@ -1,4 +1,4 @@
-package com.eminesa.dailyofspace.app
+package com.eminesa.dailyofspace.base
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

@@ -1,4 +1,4 @@
-package com.eminesa.dailyofspace
+package com.eminesa.dailyofspace.util
 
 import androidx.lifecycle.MutableLiveData
 

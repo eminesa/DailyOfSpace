@@ -10,7 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.eminesa.dailyofspace.Const
+import com.eminesa.dailyofspace.util.Const
 import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.databinding.FragmentSplashBinding
 import com.eminesa.dailyofspace.enum.ResponseStatus
