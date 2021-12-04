@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import coil.load
+import coil.util.CoilUtils
 import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.activity.MainActivity
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 
 @AndroidEntryPoint
 class DailyPhotoFragment : Fragment() {
@@ -54,12 +55,13 @@ class DailyPhotoFragment : Fragment() {
                     imgContentOfVideo.isVisible = false
                     imgSpace.isVisible = true
 
-                    Glide.with(imgSpace.context)
-                        .load(url)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.ic_astronaut)
-                        .error(R.drawable.ic_astronaut)
-                        .into(imgSpace)
+                    imgSpace.load(url) {
+                        allowRgb565(true)
+                        placeholderMemoryCacheKey(CoilUtils.metadata(imgSpace)?.memoryCacheKey)
+                        dispatcher(Dispatchers.IO)
+                        placeholder(R.drawable.ic_astronaut)
+                        error(R.drawable.ic_astronaut)
+                    }
 
                     imgDownload.setOnClickListener {
                         url?.let { urlWithLet ->
@@ -71,10 +73,12 @@ class DailyPhotoFragment : Fragment() {
         }
 
         binding?.setOnClickListener()
+
         return binding?.root
     }
 
     private fun FragmentDailyPhotoBinding.setOnClickListener() {
+
         txtDescription.setOnClickListener {
             if (txtDescription.maxLines < 3) {
                 txtDescription.ellipsize = null
@@ -84,6 +88,7 @@ class DailyPhotoFragment : Fragment() {
                 txtDescription.maxLines = 2
             }
         }
+
     }
 
     override fun onDestroy() {
@@ -91,4 +96,8 @@ class DailyPhotoFragment : Fragment() {
         super.onDestroy()
     }
 
+    override fun onDestroyView() {
+        binding = null
+        super.onDestroyView()
+    }
 }
