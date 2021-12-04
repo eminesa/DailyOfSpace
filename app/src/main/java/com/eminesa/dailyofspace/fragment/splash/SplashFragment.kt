@@ -10,11 +10,11 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.eminesa.dailyofspace.util.Const
 import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.databinding.FragmentSplashBinding
 import com.eminesa.dailyofspace.enum.ResponseStatus
 import com.eminesa.dailyofspace.fragment.dailyPhoto.DailyPhotoFragmentViewModel
+import com.eminesa.dailyofspace.util.Const
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -95,10 +95,16 @@ class SplashFragment : Fragment() {
     }
 
     override fun onDestroy() {
-
-        Const.isRepostedPostDeleted.postValue(null)
         binding = null
+        findNavController().currentBackStackEntry?.viewModelStore?.clear()
         super.onDestroy()
+    }
+
+    override fun onDestroyView() {
+        binding = null
+        viewModel.getDailyPhoto(null).removeObservers(viewLifecycleOwner)
+        findNavController().currentBackStackEntry?.viewModelStore?.clear()
+        super.onDestroyView()
     }
 
 }

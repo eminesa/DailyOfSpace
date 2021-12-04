@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DailyPhotoFragmentViewModel @Inject constructor(val repository: Repository) : ViewModel() {
 
-    fun getDailyPhoto(key: String): LiveData<GlobalResponse<out NasaByIdResponse>> =
+    fun getDailyPhoto(key: String?): LiveData<GlobalResponse<out NasaByIdResponse>> =
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
 
             emit(GlobalResponse.loading(null))
@@ -27,6 +27,5 @@ class DailyPhotoFragmentViewModel @Inject constructor(val repository: Repository
                     )
                 )
             }
-
         }
 }
