@@ -23,7 +23,6 @@ class SplashFragment : Fragment() {
     private var binding: FragmentSplashBinding? = null
     private val viewModel: DailyPhotoFragmentViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,7 +72,7 @@ class SplashFragment : Fragment() {
         return binding?.root
     }
 
-    private fun getImageOrVideo(onBlockedOrMuteListener: ((date: String?, explanation: String?, title: String?, mediaType: String?, url: String?) -> Unit)) {
+    private fun getImageOrVideo(imageOrVideoLoadListener: ((date: String?, explanation: String?, title: String?, mediaType: String?, url: String?) -> Unit)) {
 
         viewModel.getDailyPhoto(Const.nasaKey).observe(viewLifecycleOwner, { responseVersion ->
             when (responseVersion.status) {
@@ -87,7 +86,7 @@ class SplashFragment : Fragment() {
                     val mediaType = responseVersion.data?.media_type
                     val url = responseVersion.data?.url
 
-                    onBlockedOrMuteListener(date, explanation, title, mediaType, url)
+                    imageOrVideoLoadListener(date, explanation, title, mediaType, url)
                 }
                 ResponseStatus.ERROR -> {
                 }
@@ -96,6 +95,8 @@ class SplashFragment : Fragment() {
     }
 
     override fun onDestroy() {
+
+        Const.isRepostedPostDeleted.postValue(null)
         binding = null
         super.onDestroy()
     }

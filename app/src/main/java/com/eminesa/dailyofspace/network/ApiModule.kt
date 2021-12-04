@@ -30,7 +30,7 @@ object ApiModule {
     @Singleton
     @Provides
     fun certificatePinner() = CertificatePinner.Builder()
-        .add("*.turktelekom.com.tr", "sha1/ZrNZ1xXEXgxPuyh/MKBoUNyAVag=")// istenen SHA eklenir
+        .add("", "")// istenen SHA eklenir
         .build()
 
     /**
