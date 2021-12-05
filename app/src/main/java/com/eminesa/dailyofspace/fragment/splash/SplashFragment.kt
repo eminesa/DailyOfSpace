@@ -15,6 +15,7 @@ import com.eminesa.dailyofspace.databinding.FragmentSplashBinding
 import com.eminesa.dailyofspace.enum.ResponseStatus
 import com.eminesa.dailyofspace.fragment.dailyPhoto.DailyPhotoFragmentViewModel
 import com.eminesa.dailyofspace.util.Const
+import com.yerli.sosyal.utils.storage.LocaleStorageManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,17 +34,36 @@ class SplashFragment : Fragment() {
         getImageOrVideo { date, explanation, title, mediaType, url ->
 
             Const.isRepostedPostDeleted.observe(viewLifecycleOwner, {
+
                 if (it) {
-                    findNavController().navigate(
-                        R.id.action_splashFragment_to_dailyPhotoFragment,
-                        bundleOf(
-                            "date" to date,
-                            "explanation" to explanation,
-                            "title" to title,
-                            "mediaType" to mediaType,
-                            "url" to url,
+
+                   val isWatchedIntro = LocaleStorageManager.getPreferencesBoolVal("intro")
+
+                    if (isWatchedIntro) {
+                        findNavController().navigate(
+                            R.id.action_splashFragment_to_dailyPhotoFragment,
+                            bundleOf(
+                                "date" to date,
+                                "explanation" to explanation,
+                                "title" to title,
+                                "mediaType" to mediaType,
+                                "url" to url,
+                            )
                         )
-                    )
+                    } else {
+
+                        findNavController().navigate(
+                            R.id.action_splashFragment_to_introFragment,
+                            bundleOf(
+                                "date" to date,
+                                "explanation" to explanation,
+                                "title" to title,
+                                "mediaType" to mediaType,
+                                "url" to url,
+                            )
+                        )
+                    }
+
                     Const.isRepostedPostDeleted.postValue(false)
                 }
             })

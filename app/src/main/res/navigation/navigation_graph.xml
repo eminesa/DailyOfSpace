@@ -15,6 +15,9 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_introFragment"
+            app:destination="@id/introFragment" />
     </fragment>
 
     <fragment
@@ -22,4 +25,13 @@
         android:name="com.eminesa.dailyofspace.fragment.dailyPhoto.DailyPhotoFragment"
         android:label="fragment_daily_photo"
         tools:layout="@layout/fragment_daily_photo" />
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.eminesa.dailyofspace.fragment.intro.IntroFragment"
+        android:label="fragment_intro"
+        tools:layout="@layout/fragment_intro" >
+        <action
+            android:id="@+id/action_introFragment_to_dailyPhotoFragment"
+            app:destination="@id/dailyPhotoFragment" />
+    </fragment>
 </navigation>

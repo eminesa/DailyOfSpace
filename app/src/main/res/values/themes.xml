@@ -22,4 +22,43 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
+
+    <style name="TextTitleColorAndDarkGray16sp" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/light_black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Medium32Sp" >
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="BaseButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:backgroundTint">@color/purple</item>
+        <item name="android:textColor">@color/ecru</item>
+        <item name="android:textSize">14sp</item>
+        <item name="cornerRadius">99dp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="percentWidth">0.69</item>
+        <item name="percentHeight">0.5</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="rippleColor">@color/ecru</item>
+        <item name="android:letterSpacing">0.026</item>
+    </style>
+
+    <style name="TextMedium14sp" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/light_black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:letterSpacing">0.026</item>
+    </style>
+
 </resources>
