@@ -17,7 +17,10 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashFragment_to_introFragment"
-            app:destination="@id/introFragment" />
+            app:destination="@id/introFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment
@@ -32,6 +35,9 @@
         tools:layout="@layout/fragment_intro" >
         <action
             android:id="@+id/action_introFragment_to_dailyPhotoFragment"
-            app:destination="@id/dailyPhotoFragment" />
+            app:destination="@id/dailyPhotoFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

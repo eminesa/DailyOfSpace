@@ -23,8 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class IntroFragment : Fragment(), OnSnapPositionChangeListener {
 
-    var introBinding: FragmentIntroBinding? = null
+    private var introBinding: FragmentIntroBinding? = null
     private var getPosition: Int = 0
+    private var adapter: IntroAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +51,7 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
      * Bu fonksiyon kullanılan recyclerview'i ve IntroAdapter'ı initial eder.
      */
     private fun setRecyclerView() {
-        val adapter = IntroAdapter()
+         adapter = IntroAdapter()
 
         introBinding?.apply {
             recyclerOnBoarding.adapter = adapter
@@ -61,25 +62,25 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
         onBoardList.add(
             IntroModel(
                 getString(R.string.onboarding_title_1),
-                R.drawable.ic_discover,
+                R.drawable.ic_discover_page,
                 getString(R.string.onboarding_desc_1),
             )
         )
         onBoardList.add(
             IntroModel(
                 getString(R.string.onboarding_title_2),
-                R.drawable.ic_discover,
+                R.drawable.ic_notice_page,
                 getString(R.string.onboarding_desc_2),
             )
         )
         onBoardList.add(
             IntroModel(
                 getString(R.string.onboarding_title_3),
-                R.drawable.ic_discover,
+                R.drawable.ic_download_page,
                 getString(R.string.onboarding_desc_3),
             )
         )
-        adapter.submitList(onBoardList)
+        adapter?.submitList(onBoardList)
     }
 
     private fun sendArgument() {
@@ -104,16 +105,6 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
                 )
             )
         }
-    }
-
-    override fun onDestroy() {
-        introBinding = null
-        super.onDestroy()
-    }
-
-    override fun onDestroyView() {
-        introBinding = null
-        super.onDestroyView()
     }
 
     override fun onSnapPositionChange(position: Int) {
@@ -189,6 +180,20 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
         btnListItemJump.setOnClickListener {
             sendArgument()
         }
+    }
+
+    override fun onDestroy() {
+        introBinding?.recyclerOnBoarding?.adapter = null
+        adapter = null
+        introBinding = null
+        super.onDestroy()
+    }
+
+    override fun onDestroyView() {
+        introBinding?.recyclerOnBoarding?.adapter = null
+        adapter = null
+        introBinding = null
+        super.onDestroyView()
     }
 }
 

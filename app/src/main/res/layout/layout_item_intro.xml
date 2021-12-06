@@ -8,14 +8,14 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_list_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="380dp"
+        android:layout_height="380dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@id/txt_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_discover" />
+        tools:src="@drawable/ic_download_page" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txt_title"
