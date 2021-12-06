@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Daily Of Space</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="file_downloaded">File downloaded successfully</string>
@@ -16,6 +17,5 @@
     <string name="onboarding_desc_2">Learn about photographed galaxy</string>
     <string name="onboarding_desc_3">Download the discovered photo, use it anywhere</string>
 
-    <string name="go_to_space">Discover the Space</string>
 
 </resources>

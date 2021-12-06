@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Daily Of Space</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -9,13 +10,11 @@
     <string name="skip">Atla</string>
 
     <string name="onboarding_title_1">Galaksiyi Keşfet</string>
-    <string name="onboarding_title_2">Galaksiyi Fark Edin</string>
-    <string name="onboarding_title_3">Fotoğraf İndirin</string>
+    <string name="onboarding_title_2">Galaksiyi Fark Et</string>
+    <string name="onboarding_title_3">Fotoğraf İndir</string>
 
     <string name="onboarding_desc_1">Nasa tarafından yayınlanan fotoğrafları keşfedin</string>
     <string name="onboarding_desc_2">Fotoğraflanan galaksi hakkında bilgi edinin</string>
     <string name="onboarding_desc_3">Keşfedilen fotoğrafı indirin, istediğiniz her yerde kullanın</string>
-
-    <string name="go_to_space">Galaksiyi Keşfet</string>
 
 </resources>

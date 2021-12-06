@@ -169,7 +169,7 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
     }
 
     /**
-     * Bu fonksiyon sayfada bulunan tüm clikcleri yönetir
+     * Bu fonksiyon sayfada bulunan tüm clickleri yönetir
      */
     private fun FragmentIntroBinding.onClickListener() {
 
@@ -182,14 +182,13 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
             }
 
             if (getPosition == 2) {
-                btnListItemNext.text = getString(R.string.go_to_space)
+                btnListItemNext.text = getString(R.string.onboarding_title_1)
                 sendArgument()
             }
         }
         btnListItemJump.setOnClickListener {
             sendArgument()
         }
-
     }
 }
 
