@@ -5,7 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="something_was_wrong">Birşeyler hatalı</string>
     <string name="file_downloaded">Dosya başarılı bir şekilde indirildi</string>
-    <string name="welcome_to_space">Daily of Space hoş geldiniz</string>
+    <string name="welcome_to_space">Hoş Geldiniz</string>
     <string name="button_continue">Devam</string>
     <string name="skip">Atla</string>
 
@@ -15,6 +15,6 @@
 
     <string name="onboarding_desc_1">Nasa tarafından yayınlanan fotoğrafları keşfedin</string>
     <string name="onboarding_desc_2">Fotoğraflanan galaksi hakkında bilgi edinin</string>
-    <string name="onboarding_desc_3">Keşfedilen fotoğrafı indirin, istediğiniz her yerde kullanın</string>
+    <string name="onboarding_desc_3">Keşfedilen fotoğrafı indirin, istediğiniz yerde kullanın</string>
 
 </resources>
