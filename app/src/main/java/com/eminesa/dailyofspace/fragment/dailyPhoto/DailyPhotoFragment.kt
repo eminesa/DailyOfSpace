@@ -1,22 +1,31 @@
 package com.eminesa.dailyofspace.fragment.dailyPhoto
 
+import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import coil.load
 import coil.util.CoilUtils
 import com.eminesa.dailyofspace.R
-import com.eminesa.dailyofspace.activity.MainActivity
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 
 @AndroidEntryPoint
 class DailyPhotoFragment : Fragment() {
+
+    private var downloadId = 0L
 
     private var binding: FragmentDailyPhotoBinding? = null
 
@@ -26,6 +35,8 @@ class DailyPhotoFragment : Fragment() {
     ): View? {
         if (binding == null)
             binding = FragmentDailyPhotoBinding.inflate(inflater)
+
+        requireActivity().registerReceiver(onDownloadComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         if (arguments != null) {
 
@@ -65,7 +76,11 @@ class DailyPhotoFragment : Fragment() {
 
                     imgDownload.setOnClickListener {
                         url?.let { urlWithLet ->
-                            (activity as MainActivity?)?.downloadFile(urlWithLet)
+                            //(activity as MainActivity?)?.downloadFile(urlWithLet)
+                            imgDownload.isEnabled = false
+                            binding?.progressBar?.visibility = View.VISIBLE
+                            downloadFile(urlWithLet)
+
                         }
                     }
                 }
@@ -91,8 +106,39 @@ class DailyPhotoFragment : Fragment() {
 
     }
 
+    private fun downloadFile(url: String) {
+
+        val uri = Uri.parse(url)
+        val request = DownloadManager.Request(uri)
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            //.setTitle("SpaceDaily")
+            .setDescription("Your space image is downloading...")
+            .setAllowedOverMetered(true)
+
+        val manager =
+            requireContext().getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
+
+        downloadId = manager.enqueue(request)
+    }
+
+    //now checking if download complete
+    private val onDownloadComplete: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            if (downloadId == id) {
+
+                binding?.imgDownload?.setImageResource(R.drawable.ic_success)
+                binding?.progressBar?.visibility = View.GONE
+
+                Toast.makeText(requireContext(), getString(R.string.daily_photo_downloaded), Toast.LENGTH_SHORT).show()
+
+            }
+        }
+    }
+
     override fun onDestroy() {
         binding = null
+        requireActivity().unregisterReceiver(onDownloadComplete)
         super.onDestroy()
     }
 

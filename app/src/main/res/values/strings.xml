@@ -16,5 +16,6 @@
     <string name="onboarding_desc_1">Nasa tarafından yayınlanan fotoğrafları keşfedin</string>
     <string name="onboarding_desc_2">Fotoğraflanan galaksi hakkında bilgi edinin</string>
     <string name="onboarding_desc_3">Keşfedilen fotoğrafı indirin, istediğiniz yerde kullanın</string>
+    <string name="daily_photo_downloaded">Fotoğraf indirildi</string>
 
 </resources>
