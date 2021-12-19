@@ -61,4 +61,10 @@
         <item name="android:letterSpacing">0.026</item>
     </style>
 
+
+<!--<item name="android:indeterminateOnly">false </item>-->
+    <style name="CircularDeterminateProgressBar">
+        <item name="android:progressDrawable">@drawable/custom_progressbar</item>
+    </style>
+
 </resources>

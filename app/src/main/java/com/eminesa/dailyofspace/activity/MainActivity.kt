@@ -32,18 +32,6 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(R.id.splashFragment)
     }
 
-    fun downloadFile(url: String) {
-        val uri = Uri.parse(url)
-        val request = DownloadManager.Request(uri)
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            //.setTitle("SpaceDaily")
-            .setDescription("Your space image is downloading...")
-            .setAllowedOverMetered(true)
-
-        val manager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        manager.enqueue(request)
-    }
-
    fun initUI(videoUrl: String): YouTubePlayer.OnInitializedListener {
        return object : YouTubePlayer.OnInitializedListener {
            override fun onInitializationSuccess(
