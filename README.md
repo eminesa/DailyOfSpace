@@ -1,5 +1,5 @@
 # DailyOfSpace
-This app is show us Nasa's published daily photo. User could download this daily picture. If user's first time to download Daily Of Space, Daily Os Space is introduce  itself.
+Daily Of Space is show us Nasa's published daily photo. User could download this daily picture. If user's first time to download Daily Of Space, Daily Os Space is introduce  itself.
 
 ## What we use 
 - NASA APIs: https://api.nasa.gov/ 
