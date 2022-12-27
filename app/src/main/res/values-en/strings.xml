@@ -13,8 +13,9 @@
     <string name="onboarding_title_2">Notice the Galaxy</string>
     <string name="onboarding_title_3">Download  Photo</string>
 
-    <string name="onboarding_desc_1">Discover every day a new photo taked by Nasa</string>
+    <string name="onboarding_desc_1">Discover every day a new photo took by Nasa</string>
     <string name="onboarding_desc_2">Learn about photographed galaxy</string>
     <string name="onboarding_desc_3">Download the discovered photo, use it anywhere</string>
+    <string name="daily_photo_downloaded">Photo downloaded</string>
 
 </resources>
