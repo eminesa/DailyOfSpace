@@ -28,7 +28,6 @@ import android.content.IntentFilter
 class DailyPhotoFragmentViewModel @Inject constructor(val repository: Repository) : ViewModel() {
 
 
-
     fun getDailyPhoto(key: String?): LiveData<GlobalResponse<out NasaByIdResponse>> =
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
 

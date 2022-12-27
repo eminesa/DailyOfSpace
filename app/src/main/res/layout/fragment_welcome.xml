@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.welcome.WelcomeFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txt_welcome"
+        style="@style/Medium32Sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/welcome_to_space" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_loginWithHuawei"
+        style="@style/BaseButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginHorizontal="52dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/login_with_huawei"
+        app:layout_constraintBottom_toTopOf="@id/txt_sign_in_with_huawei"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txt_sign_in_with_huawei"
+        style="@style/TextTitleColorAndDarkGray16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="130dp"
+        android:gravity="center"
+        android:textColor="@color/light_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/sign_in_with_huawei" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

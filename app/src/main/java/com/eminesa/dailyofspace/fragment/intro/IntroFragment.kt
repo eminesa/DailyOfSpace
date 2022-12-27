@@ -92,10 +92,9 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
             val title = arguments?.getString("title")
             val mediaType = arguments?.getString("media_type")
             val url = arguments?.getString("url")
-            LocaleStorageManager.setPreferences("intro", true)
 
             findNavController().navigate(
-                R.id.action_introFragment_to_dailyPhotoFragment,
+                R.id.action_introFragment_to_welcomeFragment,
                 bundleOf(
                     "date" to date,
                     "explanation" to explanation,

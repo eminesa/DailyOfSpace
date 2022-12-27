@@ -33,8 +33,21 @@
         android:name="com.eminesa.dailyofspace.fragment.intro.IntroFragment"
         android:label="fragment_intro"
         tools:layout="@layout/fragment_intro" >
+
         <action
-            android:id="@+id/action_introFragment_to_dailyPhotoFragment"
+            android:id="@+id/action_introFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.eminesa.dailyofspace.fragment.welcome.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_dailyPhotoFragment"
             app:destination="@id/dailyPhotoFragment"
             app:launchSingleTop="true"
             app:popUpTo="@id/navigation"
