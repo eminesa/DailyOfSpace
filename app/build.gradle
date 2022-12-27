@@ -4,17 +4,18 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.huawei.agconnect'
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.eminesa.photoofspace"
+        applicationId "com.eminesa.dailyofspace"
         minSdk 22
-        targetSdk 31
-        versionCode 1
-        versionName "1.0.0"
+        targetSdk 33
+        versionCode 2
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,14 +41,14 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
     // youtube api key implementation
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
@@ -73,12 +74,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$version_lifecycle"
 
-    implementation "com.google.dagger:hilt-android:2.38.1"
-    kapt "com.google.dagger:hilt-compiler:2.38.1"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
 
     // coil for set image
     implementation("io.coil-kt:coil:1.1.1")
@@ -93,42 +94,14 @@ dependencies {
     // for memory leak in debug control
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
-}
+    // hms app gallery connect kit
+    implementation "com.huawei.agconnect:agconnect-core:1.7.3.300"
+    // hms account kit
+    implementation 'com.huawei.hms:hwid:6.7.0.300'
 
-class Utils {
-    static def r = new Random(System.currentTimeMillis())
-}
+    implementation 'com.huawei.agconnect:agconnect-auth:1.7.3.300'
 
-static String toJavaCodeString(String string) {
-    byte[] b = string.getBytes()
-    int c = b.length
-    StringBuilder sb = new StringBuilder()
+    //hms cloud database
+    implementation 'com.huawei.agconnect:agconnect-cloud-database:1.5.5.300'
 
-    sb.append("(new Object() {")
-    sb.append("int t;")
-    sb.append("public String toString() {")
-    sb.append("byte[] buf = new byte[")
-    sb.append(c)
-    sb.append("];")
-
-    for (int i = 0; i < c; ++i) {
-        int t = Utils.r.nextInt()
-        int f = Utils.r.nextInt(24) + 1
-
-        t = (t & ~(0xff << f)) | (b[i] << f)
-
-        sb.append("t = ")
-        sb.append(t)
-        sb.append(";")
-        sb.append("buf[")
-        sb.append(i)
-        sb.append("] = (byte) (t >>> ")
-        sb.append(f)
-        sb.append(");")
-    }
-
-    sb.append("return new String(buf);")
-    sb.append("}}.toString())")
-
-    return sb.toString()
 }
