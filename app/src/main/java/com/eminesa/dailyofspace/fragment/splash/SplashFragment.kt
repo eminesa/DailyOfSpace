@@ -33,11 +33,11 @@ class SplashFragment : Fragment() {
 
         getImageOrVideo { date, explanation, title, mediaType, url ->
 
-            Const.isRepostedPostDeleted.observe(viewLifecycleOwner, {
+            Const.isRepostedPostDeleted.observe(viewLifecycleOwner) {
 
                 if (it) {
 
-                   val isWatchedIntro = LocaleStorageManager.getPreferencesBoolVal("intro")
+                    val isWatchedIntro = LocaleStorageManager.getPreferencesBoolVal("intro")
 
                     if (isWatchedIntro) {
                         findNavController().navigate(
@@ -66,7 +66,7 @@ class SplashFragment : Fragment() {
 
                     Const.isRepostedPostDeleted.postValue(false)
                 }
-            })
+            }
 
         }
 
@@ -94,7 +94,7 @@ class SplashFragment : Fragment() {
 
     private fun getImageOrVideo(imageOrVideoLoadListener: ((date: String?, explanation: String?, title: String?, mediaType: String?, url: String?) -> Unit)) {
 
-        viewModel.getDailyPhoto(Const.nasaKey).observe(viewLifecycleOwner, { responseVersion ->
+        viewModel.getDailyPhoto(Const.nasaKey).observe(viewLifecycleOwner) { responseVersion ->
             when (responseVersion.status) {
                 ResponseStatus.LOADING -> {
                     //internet kontrolu saglaman lazim
@@ -111,7 +111,7 @@ class SplashFragment : Fragment() {
                 ResponseStatus.ERROR -> {
                 }
             }
-        })
+        }
     }
 
     override fun onDestroy() {

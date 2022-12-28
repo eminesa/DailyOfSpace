@@ -15,9 +15,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import coil.load
 import coil.util.CoilUtils
 import com.eminesa.dailyofspace.R
+import com.eminesa.dailyofspace.clouddb.ObjPhoto
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +30,7 @@ class DailyPhotoFragment : Fragment() {
     private var downloadId = 0L
 
     private var binding: FragmentDailyPhotoBinding? = null
+    private val viewModel: DailyPhotoFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,6 +88,18 @@ class DailyPhotoFragment : Fragment() {
                     }
                 }
             }
+
+            val user = ObjPhoto()
+
+            user.userId = "uniaflskfnpfVKDSFL;lgjpoiafSDJOFbqoeebewafd"
+            user.userName = "Emine"
+            user.photoAddDate = date
+            user.photoTitle = title
+            user.photoDesc = "explanation"
+            user.urlType = mediaType
+            user.photoUrl = url
+
+            viewModel.saveUser(user)
         }
 
         binding?.setOnClickListener()
