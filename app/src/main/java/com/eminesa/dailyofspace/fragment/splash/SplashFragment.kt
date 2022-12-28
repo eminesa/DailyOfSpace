@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.databinding.FragmentSplashBinding
 import com.eminesa.dailyofspace.enum.ResponseStatus
-import com.eminesa.dailyofspace.fragment.dailyPhoto.DailyPhotoFragmentViewModel
 import com.eminesa.dailyofspace.util.Const
 import com.yerli.sosyal.utils.storage.LocaleStorageManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SplashFragment : Fragment() {
 
     private var binding: FragmentSplashBinding? = null
-    private val viewModel: DailyPhotoFragmentViewModel by viewModels()
+    private val viewModel: SplashFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

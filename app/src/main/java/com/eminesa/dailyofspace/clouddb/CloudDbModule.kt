@@ -1,6 +1,7 @@
 package com.eminesa.dailyofspace.clouddb
 
 import android.content.Context
+import android.util.Log
 import com.huawei.agconnect.AGCRoutePolicy
 import com.huawei.agconnect.AGConnectInstance
 import com.huawei.agconnect.AGConnectOptionsBuilder
@@ -21,14 +22,26 @@ object CloudDBModule {
     @Provides
     fun createCloudDBConnection(
         @ApplicationContext context: Context,
-    ) : AGConnectCloudDB {
+    ): AGConnectCloudDB {
         AGConnectCloudDB.initialize(context)
 
-        val agcConnectOptions = AGConnectOptionsBuilder().setRoutePolicy(AGCRoutePolicy.GERMANY).build(context)
+        val agcConnectOptions =
+            AGConnectOptionsBuilder().setRoutePolicy(AGCRoutePolicy.GERMANY).build(context)
         val instance = AGConnectInstance.buildInstance(agcConnectOptions)
 
-        val connectionCloudDB = AGConnectCloudDB.getInstance(instance, AGConnectAuth.getInstance(instance))
+        AGConnectAuth.getInstance(instance).signInAnonymously().addOnSuccessListener {
+            Log.d("Tag", "Sign in successful")
+        }.addOnFailureListener {
+            Log.d("Tag", it.message.toString())
+        }
 
-        return connectionCloudDB
+        return AGConnectCloudDB.getInstance(instance, AGConnectAuth.getInstance(instance))
     }
+
+    @Singleton
+    @Provides
+    fun provideCloudDBManager(@ApplicationContext context: Context): CloudDBManager {
+        return CloudDBManager(createCloudDBConnection(context))
+    }
+
 }

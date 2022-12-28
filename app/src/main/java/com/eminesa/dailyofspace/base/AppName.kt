@@ -1,7 +1,6 @@
 package com.eminesa.dailyofspace.base
 
 import android.app.Application
-import com.eminesa.dailyofspace.clouddb.CloudDBModule.createCloudDBConnection
 import com.yerli.sosyal.utils.storage.LocaleStorageManager
 import dagger.hilt.android.HiltAndroidApp
 
@@ -11,6 +10,5 @@ class AppName : Application(){
         super.onCreate()
 
         LocaleStorageManager.init(this)
-        createCloudDBConnection(applicationContext)
     }
 }

@@ -13,16 +13,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import coil.load
-import coil.util.CoilUtils
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.eminesa.dailyofspace.R
+import com.eminesa.dailyofspace.adapter.PhotoAdapter
 import com.eminesa.dailyofspace.clouddb.ObjPhoto
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 
 @AndroidEntryPoint
 class DailyPhotoFragment : Fragment() {
@@ -30,8 +28,9 @@ class DailyPhotoFragment : Fragment() {
     private var downloadId = 0L
 
     private var binding: FragmentDailyPhotoBinding? = null
+    private var photoAdaper: PhotoAdapter? = null
     private val viewModel: DailyPhotoFragmentViewModel by viewModels()
-
+    private val user = ObjPhoto()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +38,25 @@ class DailyPhotoFragment : Fragment() {
         if (binding == null)
             binding = FragmentDailyPhotoBinding.inflate(inflater)
 
-        requireActivity().registerReceiver(onDownloadComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        viewModel.getSpots()
+        observeLiveData()
+
+        requireActivity().registerReceiver(
+            onDownloadComplete,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
+
+        if (photoAdaper == null)
+            photoAdaper = PhotoAdapter { txtDescription, photoInfo ->
+
+                if (txtDescription.maxLines < 2) {
+                    txtDescription.ellipsize = null
+                    txtDescription.maxLines = Integer.MAX_VALUE
+                } else {
+                    txtDescription.ellipsize = TextUtils.TruncateAt.END
+                    txtDescription.maxLines = 1
+                }
+            }
 
         if (arguments != null) {
 
@@ -49,76 +66,53 @@ class DailyPhotoFragment : Fragment() {
             val mediaType = arguments?.getString("media_type")
             val url = arguments?.getString("url")
 
-            binding?.apply {
-                txtTitle.text = title
-                txtDescription.text = explanation
-
-                if (mediaType == "video") {
-                    //https://www.youtube.com/embed/VYWjxvm14Pk?rel=0
-                    imgSpace.isVisible = false
-                    imgContentOfVideo.isVisible = true
-                    imgDownload.isVisible = false
-                    constraintInfo.isVisible = false
-
-                    //url?.let { initUI(it) }
-                    //   val youtubePlayerInit = url?.let { initUI(it) }
-                    //   binding?.youtubePlayer?.initialize(youtubeApiKey, youtubePlayerInit)
-                } else {
-
-                    imgDownload.isVisible = true
-                    imgContentOfVideo.isVisible = false
-                    imgSpace.isVisible = true
-
-                    imgSpace.load(url) {
-                        allowRgb565(true)
-                        placeholderMemoryCacheKey(CoilUtils.metadata(imgSpace)?.memoryCacheKey)
-                        dispatcher(Dispatchers.IO)
-                        placeholder(R.drawable.ic_astronaut)
-                        error(R.drawable.ic_astronaut)
-                    }
-
-                    imgDownload.setOnClickListener {
-                        url?.let { urlWithLet ->
-                            //(activity as MainActivity?)?.downloadFile(urlWithLet)
-                            imgDownload.isEnabled = false
-                            binding?.progressBar?.visibility = View.VISIBLE
-                            downloadFile(urlWithLet)
-
-                        }
-                    }
-                }
-            }
-
-            val user = ObjPhoto()
-
             user.userId = "uniaflskfnpfVKDSFL;lgjpoiafSDJOFbqoeebewafd"
             user.userName = "Emine"
             user.photoAddDate = date
             user.photoTitle = title
-            user.photoDesc = "explanation"
+            user.photoDesc = explanation?.substring(0,199) ?: explanation // cloud db limitation
             user.urlType = mediaType
             user.photoUrl = url
 
-            viewModel.saveUser(user)
+            binding?.setOnClickListener(user)
+
+        }
+        binding?.recyclerViewPhoto?.apply {
+            setHasFixedSize(false)
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+            adapter = photoAdaper
         }
 
-        binding?.setOnClickListener()
 
         return binding?.root
     }
 
-    private fun FragmentDailyPhotoBinding.setOnClickListener() {
+    private fun observeLiveData() {
+        viewModel.getSpotListLiveData().observe(requireActivity()) {
+            it.add(0, user)
+            photoAdaper?.submitList(it)
+        }
+    }
 
-        txtDescription.setOnClickListener {
-            if (txtDescription.maxLines < 3) {
-                txtDescription.ellipsize = null
-                txtDescription.maxLines = Integer.MAX_VALUE
-            } else {
-                txtDescription.ellipsize = TextUtils.TruncateAt.END
-                txtDescription.maxLines = 2
-            }
+    private fun FragmentDailyPhotoBinding.setOnClickListener(user: ObjPhoto) {
+        imgDownload.setOnClickListener {
+            viewModel.saveUser(user, requireContext())
         }
 
+        /*  imgDownload.setOnClickListener {
+              url?.let { urlWithLet ->
+                  //(activity as MainActivity?)?.downloadFile(urlWithLet)
+                  imgDownload.isEnabled = false
+                  binding?.progressBar?.visibility = View.VISIBLE
+                  downloadFile(urlWithLet)
+
+              }
+          }  */
     }
 
     private fun downloadFile(url: String) {
@@ -145,7 +139,11 @@ class DailyPhotoFragment : Fragment() {
                 binding?.imgDownload?.setImageResource(R.drawable.ic_success)
                 binding?.progressBar?.visibility = View.GONE
 
-                Toast.makeText(requireContext(), getString(R.string.daily_photo_downloaded), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.daily_photo_downloaded),
+                    Toast.LENGTH_SHORT
+                ).show()
 
             }
         }
@@ -153,12 +151,14 @@ class DailyPhotoFragment : Fragment() {
 
     override fun onDestroy() {
         binding = null
+        photoAdaper = null
         requireActivity().unregisterReceiver(onDownloadComplete)
         super.onDestroy()
     }
 
     override fun onDestroyView() {
         binding = null
+        photoAdaper = null
         super.onDestroyView()
     }
 }

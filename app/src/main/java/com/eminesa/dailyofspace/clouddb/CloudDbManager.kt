@@ -6,6 +6,7 @@ import com.huawei.agconnect.cloud.database.CloudDBZone
 import com.huawei.agconnect.cloud.database.CloudDBZoneConfig
 import com.huawei.agconnect.cloud.database.CloudDBZoneQuery
 import com.huawei.agconnect.cloud.database.exceptions.AGConnectCloudDBException
+import java.util.ArrayList
 import javax.inject.Inject
 
 class CloudDBManager @Inject constructor(
@@ -24,7 +25,7 @@ class CloudDBManager @Inject constructor(
             cloudDB.createObjectType(ObjectTypeInfoHelper.getObjectTypeInfo())
 
             val mConfig = CloudDBZoneConfig(
-                "ObjPhoto",
+                "DailySpaceZone",
                 CloudDBZoneConfig.CloudDBZoneSyncProperty.CLOUDDBZONE_CLOUD_CACHE,
                 CloudDBZoneConfig.CloudDBZoneAccessProperty.CLOUDDBZONE_PUBLIC
             )
@@ -35,7 +36,7 @@ class CloudDBManager @Inject constructor(
             task.addOnSuccessListener {
                 Log.i("CloudDB", "Open cloudDBZone success")
                 mCloudDBZone = it
-                //cloudDB.closeCloudDBZone(mCloudDBZone)
+
             }.addOnFailureListener {
                 Log.w("CloudDB", "Open cloudDBZone failed for " + it.message)
             }
@@ -44,30 +45,44 @@ class CloudDBManager @Inject constructor(
         }
     }
 
-    fun saveUser(user: ObjPhoto, loginListener: LoginListener) {
+    fun saveUser(spot: ObjPhoto, callback: (isSuccessful: Boolean) -> Unit) {
         if (mCloudDBZone == null) {
-            Log.d("TAG", "Cloud DB Zone is null, try re-open it")
+            Log.w("TAG", "CloudDBZone is null, try re-open it")
             return
         }
+        val upsertTask = mCloudDBZone!!.executeUpsert(spot)
+        upsertTask.addOnSuccessListener { cloudDBZoneResult ->
+            Log.i("TAG", "Upsert $cloudDBZoneResult records")
+            callback(true)
+        }.addOnFailureListener {
+            Log.e("TAG", "Fail processUpsertResult: " + it.message)
+            callback(false)
+        }
+    }
 
-        mCloudDBZone!!.runTransaction {
-            return@runTransaction try {
-                val query = CloudDBZoneQuery.where(ObjPhoto::class.java).orderByDesc("userId")
-                    .limit(1)
-                val result = it.executeQuery(query)
-                val newID: String = if (result.size > 0)
-                    result[0].userId
-                else
-                    ""
-                user.userId = newID
-                it.executeUpsert(mutableListOf(user))
-                loginListener.onSuccess(user)
-                true
+    fun getSpots(spotList: (ArrayList<ObjPhoto>) -> Unit) {
+        val queryUsers = CloudDBZoneQuery.where(ObjPhoto::class.java)
+
+        val queryTask = mCloudDBZone?.executeQuery(
+            queryUsers,
+            CloudDBZoneQuery.CloudDBZoneQueryPolicy.POLICY_QUERY_FROM_CLOUD_ONLY
+        )
+
+        queryTask?.addOnSuccessListener { snapshot ->
+            val spotsList = arrayListOf<ObjPhoto>()
+            try {
+                while (snapshot.snapshotObjects.hasNext()) {
+                    val user = snapshot.snapshotObjects.next()
+                    spotsList.add(user)
+                }
             } catch (e: AGConnectCloudDBException) {
-                Log.w("TAG", "Chat Entry upsert is failed ${e.message}")
-                loginListener.onFailure(e)
-                false
+                Log.e("TAG", "processQueryResultExc: " + e.message)
+            } finally {
+                spotList(spotsList)
+                snapshot.release()
             }
+        }?.addOnFailureListener {
+            Log.e("TAG", "Fail processQueryResult: " + it.message)
         }
     }
 }

@@ -97,7 +97,7 @@ dependencies {
     // hms app gallery connect kit
     implementation "com.huawei.agconnect:agconnect-core:1.7.3.300"
     // hms account kit
-    implementation 'com.huawei.hms:hwid:6.7.0.300'
+    implementation 'com.huawei.hms:hwid:6.8.0.300'
 
     implementation 'com.huawei.agconnect:agconnect-auth:1.7.3.300'
 
