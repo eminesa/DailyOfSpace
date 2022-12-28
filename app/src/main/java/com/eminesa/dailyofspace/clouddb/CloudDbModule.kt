@@ -31,4 +31,10 @@ object CloudDBModule {
 
         return connectionCloudDB
     }
+
+   /* @Singleton
+    @Provides
+    fun provideCloudDBManager(@ApplicationContext context: Context): CloudDBManager{
+        return CloudDBManager(createCloudDBConnection(context))
+    } */
 }

@@ -24,7 +24,7 @@ class CloudDBManager @Inject constructor(
             cloudDB.createObjectType(ObjectTypeInfoHelper.getObjectTypeInfo())
 
             val mConfig = CloudDBZoneConfig(
-                "ObjPhoto",
+                "DailySpaceZone",
                 CloudDBZoneConfig.CloudDBZoneSyncProperty.CLOUDDBZONE_CLOUD_CACHE,
                 CloudDBZoneConfig.CloudDBZoneAccessProperty.CLOUDDBZONE_PUBLIC
             )

@@ -11,7 +11,7 @@ buildscript {
         kotlin_coroutines = "1.4.2"
         version_navigation = "2.5.3"
         lottieVersion = "3.4.0"
-        hilt_version ="2.42"
+        hilt_version ="2.44"
     }
     repositories {
         google()
