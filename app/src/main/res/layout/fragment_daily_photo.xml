@@ -7,7 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
+    xmlns:hwads="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.dailyPhoto.DailyPhotoFragment">
+
+    <com.huawei.hms.ads.banner.BannerView
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/hw_banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        hwads:adId="testw6vs28auh3"
+        hwads:bannerSize="BANNER_SIZE_360_57"/>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_download"

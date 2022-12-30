@@ -20,6 +20,9 @@ import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.adapter.PhotoAdapter
 import com.eminesa.dailyofspace.clouddb.ObjPhoto
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
+import com.huawei.hms.ads.AdParam
+import com.huawei.hms.ads.BannerAdSize
+import com.huawei.hms.ads.banner.BannerView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,6 +43,15 @@ class DailyPhotoFragment : Fragment() {
 
         viewModel.getSpots()
         observeLiveData()
+
+        //banner ads
+        val bannerView = BannerView(requireContext())
+        bannerView.adId = "testw6vs28auh3"
+        bannerView.bannerAdSize = BannerAdSize.BANNER_SIZE_360_57
+        val adParam = AdParam.Builder().build()
+        bannerView.loadAd(adParam)
+
+        binding?.hwBannerView?.addView(bannerView)
 
         requireActivity().registerReceiver(
             onDownloadComplete,
