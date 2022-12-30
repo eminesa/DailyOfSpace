@@ -104,4 +104,8 @@ dependencies {
     //hms cloud database
     implementation 'com.huawei.agconnect:agconnect-cloud-database:1.5.5.300'
 
+    //Hms Analytics
+    implementation 'com.huawei.hms:hianalytics:6.9.0.301'
+    implementation 'com.huawei.agconnect:agconnect-crash:1.7.3.300'
+
 }

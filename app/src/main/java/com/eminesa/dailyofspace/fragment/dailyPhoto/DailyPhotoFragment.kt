@@ -70,7 +70,7 @@ class DailyPhotoFragment : Fragment() {
             user.userName = "Emine"
             user.photoAddDate = date
             user.photoTitle = title
-            user.photoDesc = explanation?.substring(0,199) ?: explanation // cloud db limitation
+            user.photoDesc = "explanation" // cloud db limitation
             user.urlType = mediaType
             user.photoUrl = url
 
@@ -88,7 +88,6 @@ class DailyPhotoFragment : Fragment() {
             adapter = photoAdaper
         }
 
-
         return binding?.root
     }
 
@@ -100,8 +99,11 @@ class DailyPhotoFragment : Fragment() {
     }
 
     private fun FragmentDailyPhotoBinding.setOnClickListener(user: ObjPhoto) {
-        imgDownload.setOnClickListener {
+        imgSave.setOnClickListener {
             viewModel.saveUser(user, requireContext())
+        }
+        imgDownload.setOnClickListener {
+         val divideToZero = (1/0).toString() // for crash
         }
 
         /*  imgDownload.setOnClickListener {
