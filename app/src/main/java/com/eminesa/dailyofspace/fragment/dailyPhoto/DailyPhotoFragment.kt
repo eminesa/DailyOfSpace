@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +21,10 @@ import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.adapter.PhotoAdapter
 import com.eminesa.dailyofspace.clouddb.ObjPhoto
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
+import com.huawei.hms.ads.AdListener
 import com.huawei.hms.ads.AdParam
 import com.huawei.hms.ads.BannerAdSize
+import com.huawei.hms.ads.InterstitialAd
 import com.huawei.hms.ads.banner.BannerView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,6 +37,8 @@ class DailyPhotoFragment : Fragment() {
     private var photoAdaper: PhotoAdapter? = null
     private val viewModel: DailyPhotoFragmentViewModel by viewModels()
     private val user = ObjPhoto()
+    private var interstitialAd: InterstitialAd? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -78,11 +83,11 @@ class DailyPhotoFragment : Fragment() {
             val mediaType = arguments?.getString("media_type")
             val url = arguments?.getString("url")
 
-            user.userId = "uniaflskfnpfVKDSFL;lgjpoiafSDJOFbqoeebewafd"
+            user.userId = url
             user.userName = "Emine"
             user.photoAddDate = date
             user.photoTitle = title
-            user.photoDesc = "explanation" // cloud db limitation
+            user.photoDesc = if (explanation!!.length > 200) explanation.take(199) else explanation //for cloud db string limitation
             user.urlType = mediaType
             user.photoUrl = url
 
@@ -112,10 +117,10 @@ class DailyPhotoFragment : Fragment() {
 
     private fun FragmentDailyPhotoBinding.setOnClickListener(user: ObjPhoto) {
         imgSave.setOnClickListener {
-            viewModel.saveUser(user, requireContext())
+            loadInterstitialAd()
         }
         imgDownload.setOnClickListener {
-         val divideToZero = (1/0).toString() // for crash
+            val divideToZero = (1 / 0).toString() // for crash
         }
 
         /*  imgDownload.setOnClickListener {
@@ -127,6 +132,55 @@ class DailyPhotoFragment : Fragment() {
 
               }
           }  */
+    }
+
+    private fun loadInterstitialAd() {
+        interstitialAd = InterstitialAd(requireContext())
+        interstitialAd?.adId = "testb4znbuh3n2"
+        interstitialAd?.adListener = adListener
+        val adParam = AdParam.Builder().build()
+        interstitialAd?.loadAd(adParam)
+    }
+
+    private val adListener: AdListener = object : AdListener() {
+        override fun onAdLoaded() {
+            super.onAdLoaded()
+            Log.d("TAG_ADS", "onAdLoaded")
+            showInterstitial() // Display an interstitial ad.
+        }
+
+        override fun onAdFailed(errorCode: Int) {
+            Toast.makeText(
+                requireContext(),
+                "Ad load failed with error code: $errorCode",
+                Toast.LENGTH_SHORT
+            ).show()
+            Log.d("TAG_ADS", "Ad load failed with error code: $errorCode")
+        }
+
+        override fun onAdClosed() {
+            super.onAdClosed()
+            viewModel.saveUser(user, requireContext())
+            Log.d("TAG_ADS", "onAdClosed")
+        }
+
+        override fun onAdClicked() {
+            Log.d("TAG_ADS", "onAdClicked")
+            super.onAdClicked()
+        }
+
+        override fun onAdOpened() {
+            Log.d("TAG_ADS", "onAdOpened")
+            super.onAdOpened()
+        }
+    }
+
+    private fun showInterstitial() { // Display an interstitial ad.
+        if (interstitialAd?.isLoaded == true) {
+            interstitialAd?.show()
+        } else {
+            Toast.makeText(requireContext(), "Ad did not load", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun downloadFile(url: String) {
