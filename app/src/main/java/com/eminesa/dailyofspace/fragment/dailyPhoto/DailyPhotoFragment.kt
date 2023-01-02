@@ -17,10 +17,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.adapter.PhotoAdapter
 import com.eminesa.dailyofspace.clouddb.ObjPhoto
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
+import com.huawei.agconnect.auth.AGConnectAuth
 import com.huawei.hms.ads.AdListener
 import com.huawei.hms.ads.AdParam
 import com.huawei.hms.ads.BannerAdSize
@@ -35,6 +38,7 @@ class DailyPhotoFragment : Fragment() {
 
     private var binding: FragmentDailyPhotoBinding? = null
     private var photoAdaper: PhotoAdapter? = null
+    private var imageUrl: String? = null
     private val viewModel: DailyPhotoFragmentViewModel by viewModels()
     private val user = ObjPhoto()
     private var interstitialAd: InterstitialAd? = null
@@ -64,7 +68,7 @@ class DailyPhotoFragment : Fragment() {
         )
 
         if (photoAdaper == null)
-            photoAdaper = PhotoAdapter { txtDescription, photoInfo ->
+            photoAdaper = PhotoAdapter(onShowMoreClickListener = { txtDescription, photoInfo ->
 
                 if (txtDescription.maxLines < 2) {
                     txtDescription.ellipsize = null
@@ -73,7 +77,9 @@ class DailyPhotoFragment : Fragment() {
                     txtDescription.ellipsize = TextUtils.TruncateAt.END
                     txtDescription.maxLines = 1
                 }
-            }
+            }, itemClickListener = { view, item ->
+                //imageUrl = item.photoUrl
+            })
 
         if (arguments != null) {
 
@@ -87,7 +93,8 @@ class DailyPhotoFragment : Fragment() {
             user.userName = "Emine"
             user.photoAddDate = date
             user.photoTitle = title
-            user.photoDesc = if (explanation!!.length > 200) explanation.take(199) else explanation //for cloud db string limitation
+            user.photoDesc =
+                if (explanation!!.length > 200) explanation.take(199) else explanation //for cloud db string limitation
             user.urlType = mediaType
             user.photoUrl = url
 
@@ -105,6 +112,10 @@ class DailyPhotoFragment : Fragment() {
             adapter = photoAdaper
         }
 
+        val user = AGConnectAuth.getInstance().currentUser
+        val snapHelper: SnapHelper = LinearSnapHelper() // stay on one item
+        snapHelper.attachToRecyclerView(binding?.recyclerViewPhoto)
+
         return binding?.root
     }
 
@@ -119,19 +130,12 @@ class DailyPhotoFragment : Fragment() {
         imgSave.setOnClickListener {
             loadInterstitialAd()
         }
+
         imgDownload.setOnClickListener {
-            val divideToZero = (1 / 0).toString() // for crash
+            imgDownload.isEnabled = false
+            binding?.progressBar?.visibility = View.VISIBLE
+            downloadFile(imageUrl)
         }
-
-        /*  imgDownload.setOnClickListener {
-              url?.let { urlWithLet ->
-                  //(activity as MainActivity?)?.downloadFile(urlWithLet)
-                  imgDownload.isEnabled = false
-                  binding?.progressBar?.visibility = View.VISIBLE
-                  downloadFile(urlWithLet)
-
-              }
-          }  */
     }
 
     private fun loadInterstitialAd() {
@@ -183,7 +187,7 @@ class DailyPhotoFragment : Fragment() {
         }
     }
 
-    private fun downloadFile(url: String) {
+    private fun downloadFile(url: String?) {
 
         val uri = Uri.parse(url)
         val request = DownloadManager.Request(uri)
@@ -220,13 +224,17 @@ class DailyPhotoFragment : Fragment() {
     override fun onDestroy() {
         binding = null
         photoAdaper = null
+        imageUrl = null
+        interstitialAd = null
         requireActivity().unregisterReceiver(onDownloadComplete)
         super.onDestroy()
     }
 
     override fun onDestroyView() {
         binding = null
+        imageUrl = null
         photoAdaper = null
+        interstitialAd = null
         super.onDestroyView()
     }
 }

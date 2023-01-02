@@ -23,6 +23,7 @@ import kotlinx.coroutines.Dispatchers
 
 class PhotoAdapter(
     val onShowMoreClickListener: ((view: MaterialTextView, item: ObjPhoto) -> Unit)?,
+    val itemClickListener: ((view: View, item: ObjPhoto) -> Unit)?,
 ) : ListAdapter<ObjPhoto, PhotoAdapter.PhotoAdapterViewHolder>(
     PhotoAdapterDiffUtil
 ) {
