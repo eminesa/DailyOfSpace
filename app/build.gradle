@@ -110,4 +110,8 @@ dependencies {
 
     //hms ads kit
     implementation 'com.huawei.hms:ads-lite:13.4.60.300'
+
+    //hms Ml kit for text translate
+    implementation 'com.huawei.hms:ml-computer-translate:3.7.0.301'
+
 }

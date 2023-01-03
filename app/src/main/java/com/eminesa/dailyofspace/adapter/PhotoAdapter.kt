@@ -22,8 +22,9 @@ import kotlinx.coroutines.Dispatchers
  */
 
 class PhotoAdapter(
-    val onShowMoreClickListener: ((view: MaterialTextView, item: ObjPhoto) -> Unit)?,
+    val onShowMoreClickListener: ((textView: MaterialTextView, item: ObjPhoto) -> Unit)?,
     val itemClickListener: ((view: View, item: ObjPhoto) -> Unit)?,
+    val translateListener: ((titleTextView: MaterialTextView, decTextView: MaterialTextView,  item: ObjPhoto) -> Unit)?,
 ) : ListAdapter<ObjPhoto, PhotoAdapter.PhotoAdapterViewHolder>(
     PhotoAdapterDiffUtil
 ) {
@@ -33,22 +34,23 @@ class PhotoAdapter(
         fun bind(userItem: ObjPhoto) {
 
             initButtonText(userItem)
-
-            itemBinding.txtDescription.setOnClickListener {
-                onShowMoreClickListener?.let { onOpenListener ->
-                    onOpenListener(
-                        itemBinding.txtDescription,
-                        userItem
-                    )
-                }
-            }
         }
     }
 
     private fun PhotoAdapterViewHolder.initButtonText(
         userItem: ObjPhoto
     ) {
-
+        itemBinding.txtDescription.setOnClickListener {
+            onShowMoreClickListener?.let { onOpenListener ->
+                onOpenListener(
+                    itemBinding.txtDescription,
+                    userItem
+                )
+            }
+        }
+        itemBinding.txtTranslate.setOnClickListener {
+            translateListener?.let { it1 -> it1(itemBinding.txtTitle, itemBinding.txtDescription, userItem) }
+        }
         itemBinding.apply {
             txtTitle.text = userItem.photoTitle
             txtDescription.text = userItem.photoDesc

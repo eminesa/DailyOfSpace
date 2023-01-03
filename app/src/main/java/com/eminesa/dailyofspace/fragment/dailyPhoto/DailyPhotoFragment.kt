@@ -23,13 +23,20 @@ import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.adapter.PhotoAdapter
 import com.eminesa.dailyofspace.clouddb.ObjPhoto
 import com.eminesa.dailyofspace.databinding.FragmentDailyPhotoBinding
+import com.eminesa.dailyofspace.util.clear
+import com.google.android.material.textview.MaterialTextView
 import com.huawei.agconnect.auth.AGConnectAuth
+import com.huawei.hmf.tasks.Task
 import com.huawei.hms.ads.AdListener
 import com.huawei.hms.ads.AdParam
 import com.huawei.hms.ads.BannerAdSize
 import com.huawei.hms.ads.InterstitialAd
 import com.huawei.hms.ads.banner.BannerView
+import com.huawei.hms.mlsdk.translate.MLTranslatorFactory
+import com.huawei.hms.mlsdk.translate.cloud.MLRemoteTranslateSetting
+import com.huawei.hms.mlsdk.translate.cloud.MLRemoteTranslator
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class DailyPhotoFragment : Fragment() {
@@ -79,6 +86,12 @@ class DailyPhotoFragment : Fragment() {
                 }
             }, itemClickListener = { view, item ->
                 //imageUrl = item.photoUrl
+            }, translateListener = { titleTextview, descTextView, item ->
+                val localeLang = Locale.getDefault().language
+                //  "English", "French", "Arabic", "Thai", "Spanish", "Turkish"
+                translateText(titleTextview, item.photoTitle, "en",  localeLang)
+                translateText(descTextView, item.photoDesc, "en",  localeLang)
+
             })
 
         if (arguments != null) {
@@ -200,6 +213,31 @@ class DailyPhotoFragment : Fragment() {
             requireContext().getSystemService(AppCompatActivity.DOWNLOAD_SERVICE) as DownloadManager
 
         downloadId = manager.enqueue(request)
+    }
+
+    private fun translateText(textView: MaterialTextView, sourceText: String, fromLang: String, toLang: String) {
+
+        val setting: MLRemoteTranslateSetting =
+            MLRemoteTranslateSetting.Factory()
+                .setSourceLangCode(fromLang)
+                .setTargetLangCode(toLang)
+                .create()
+
+        val mlRemoteTranslator: MLRemoteTranslator =
+            MLTranslatorFactory.getInstance().getRemoteTranslator(setting)
+
+        if(!TextUtils.isEmpty(sourceText)){
+            val task: Task<String> =
+                mlRemoteTranslator.asyncTranslate(sourceText)
+            task.addOnSuccessListener {
+                textView.clear()
+                textView.text = it
+            }.addOnFailureListener {
+                textView.text = it.message
+            }
+        } else {
+            textView.text = "null"
+        }
     }
 
     //now checking if download complete

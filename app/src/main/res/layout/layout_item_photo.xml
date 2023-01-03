@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/img_space"
@@ -17,11 +17,11 @@
         app:zoomage_zoomable="true" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/constraint_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txt_title"
@@ -38,7 +38,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txt_description"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:ellipsize="end"
@@ -47,9 +47,25 @@
             android:paddingHorizontal="20dp"
             android:textColor="@color/white"
             android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@id/txt_translate"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@string/app_name" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txt_translate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/roboto_regular"
+            android:padding="4dp"
+            android:paddingHorizontal="20dp"
+            android:text="@string/translate"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
