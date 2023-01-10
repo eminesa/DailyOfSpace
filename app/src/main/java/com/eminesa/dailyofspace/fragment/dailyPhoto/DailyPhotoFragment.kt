@@ -88,9 +88,9 @@ class DailyPhotoFragment : Fragment() {
                 //imageUrl = item.photoUrl
             }, translateListener = { titleTextview, descTextView, item ->
                 val localeLang = Locale.getDefault().language
-                //  "English", "French", "Arabic", "Thai", "Spanish", "Turkish"
-                translateText(titleTextview, item.photoTitle, "en",  localeLang)
-                translateText(descTextView, item.photoDesc, "en",  localeLang)
+
+                translateText(titleTextview, item.photoTitle, "en", localeLang)
+                translateText(descTextView, item.photoDesc, "en", localeLang)
 
             })
 
@@ -215,7 +215,12 @@ class DailyPhotoFragment : Fragment() {
         downloadId = manager.enqueue(request)
     }
 
-    private fun translateText(textView: MaterialTextView, sourceText: String, fromLang: String, toLang: String) {
+    private fun translateText(
+        textView: MaterialTextView,
+        sourceText: String,
+        fromLang: String,
+        toLang: String
+    ) {
 
         val setting: MLRemoteTranslateSetting =
             MLRemoteTranslateSetting.Factory()
@@ -226,7 +231,7 @@ class DailyPhotoFragment : Fragment() {
         val mlRemoteTranslator: MLRemoteTranslator =
             MLTranslatorFactory.getInstance().getRemoteTranslator(setting)
 
-        if(!TextUtils.isEmpty(sourceText)){
+        if (!TextUtils.isEmpty(sourceText)) {
             val task: Task<String> =
                 mlRemoteTranslator.asyncTranslate(sourceText)
             task.addOnSuccessListener {
