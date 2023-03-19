@@ -10,7 +10,7 @@ Daily Of Space is show us Nasa's published daily photo. User could download this
 - Retrofit
 - Moshi(instead of Gson)
 - Coil(For preview image)
-- Lottie(For previegif)
+- Lottie(For preview gif)
 - Zoomage(For pinch-to-zoom)
 - Leakcanary(For know memory leak to fix them)
 - Coroutine(For Executing in a background thread)

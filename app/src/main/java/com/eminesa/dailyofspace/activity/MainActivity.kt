@@ -8,7 +8,6 @@ import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.databinding.ActivityMainBinding
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-import com.huawei.hms.ads.HwAds
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        HwAds.init(this)
 
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding?.root)

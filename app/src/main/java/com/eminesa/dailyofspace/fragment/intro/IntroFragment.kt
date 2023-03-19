@@ -84,7 +84,7 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
     }
 
     private fun sendArgument() {
-
+        LocaleStorageManager.setPreferences("intro", true)
         if (arguments != null) {
 
             val date = arguments?.getString("date")
@@ -94,7 +94,7 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
             val url = arguments?.getString("url")
 
             findNavController().navigate(
-                R.id.action_introFragment_to_welcomeFragment,
+                R.id.action_introFragment_to_dailyPhotoFragment,
                 bundleOf(
                     "date" to date,
                     "explanation" to explanation,

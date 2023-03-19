@@ -17,8 +17,6 @@
     <string name="onboarding_desc_2">Learn about photographed galaxy</string>
     <string name="onboarding_desc_3">Download the discovered photo, use it anywhere</string>
     <string name="daily_photo_downloaded">Photo downloaded</string>
-    <string name="login_with_huawei">Login With Huawei</string>
-    <string name="sign_in_with_huawei">Sign In With Huawei</string>
-    <string name="translate">Translate</string>
+     <string name="translate">Translate</string>
 
 </resources>

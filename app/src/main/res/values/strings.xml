@@ -17,7 +17,5 @@
     <string name="onboarding_desc_2">Fotoğraflanan galaksi hakkında bilgi edinin</string>
     <string name="onboarding_desc_3">Keşfedilen fotoğrafı indirin, istediğiniz yerde kullanın</string>
     <string name="daily_photo_downloaded">Fotoğraf indirildi</string>
-    <string name="login_with_huawei">Huawei ile Giris Yap</string>
-    <string name="sign_in_with_huawei">Huawei ile Kayit Ol</string>
-    <string name="translate">Ceviri</string>
+     <string name="translate">Ceviri</string>
 </resources>

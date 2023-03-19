@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.util.CoilUtils
 import com.eminesa.dailyofspace.R
-import com.eminesa.dailyofspace.clouddb.ObjPhoto
 import com.eminesa.dailyofspace.databinding.LayoutItemPhotoBinding
+import com.eminesa.dailyofspace.model.NasaByIdResponse
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.Dispatchers
 
@@ -22,40 +22,38 @@ import kotlinx.coroutines.Dispatchers
  */
 
 class PhotoAdapter(
-    val onShowMoreClickListener: ((textView: MaterialTextView, item: ObjPhoto) -> Unit)?,
-    val itemClickListener: ((view: View, item: ObjPhoto) -> Unit)?,
-    val translateListener: ((titleTextView: MaterialTextView, decTextView: MaterialTextView,  item: ObjPhoto) -> Unit)?,
-) : ListAdapter<ObjPhoto, PhotoAdapter.PhotoAdapterViewHolder>(
+    val onShowMoreClickListener: ((textView: MaterialTextView, item: NasaByIdResponse) -> Unit)?,
+    val itemClickListener: ((view: View, item: NasaByIdResponse) -> Unit)?,
+    val translateListener: ((titleTextView: MaterialTextView, decTextView: MaterialTextView,  item: NasaByIdResponse) -> Unit)?,
+) : ListAdapter<NasaByIdResponse, PhotoAdapter.PhotoAdapterViewHolder>(
     PhotoAdapterDiffUtil
 ) {
 
     inner class PhotoAdapterViewHolder(var itemBinding: LayoutItemPhotoBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(userItem: ObjPhoto) {
+        fun bind(userItem: NasaByIdResponse) {
 
             initButtonText(userItem)
         }
     }
 
     private fun PhotoAdapterViewHolder.initButtonText(
-        userItem: ObjPhoto
+        imageItem: NasaByIdResponse
     ) {
         itemBinding.txtDescription.setOnClickListener {
             onShowMoreClickListener?.let { onOpenListener ->
                 onOpenListener(
                     itemBinding.txtDescription,
-                    userItem
+                    imageItem
                 )
             }
         }
-        itemBinding.txtTranslate.setOnClickListener {
-            translateListener?.let { it1 -> it1(itemBinding.txtTitle, itemBinding.txtDescription, userItem) }
-        }
-        itemBinding.apply {
-            txtTitle.text = userItem.photoTitle
-            txtDescription.text = userItem.photoDesc
 
-            if (userItem.urlType == "video") {
+        itemBinding.apply {
+            txtTitle.text = imageItem.title
+            txtDescription.text = imageItem.explanation
+
+            if (imageItem.url == "video") {
                 //https://www.youtube.com/embed/VYWjxvm14Pk?rel=0
                 imgSpace.isVisible = false
                 imgContentOfVideo.isVisible = true
@@ -69,7 +67,7 @@ class PhotoAdapter(
                 imgSpace.isVisible = true
                 imgContentOfVideo.isVisible = false
 
-                imgSpace.load(userItem.photoUrl) {
+                imgSpace.load(imageItem.url) {
                     allowRgb565(true)
                     placeholderMemoryCacheKey(CoilUtils.metadata(imgSpace)?.memoryCacheKey)
                     dispatcher(Dispatchers.IO)
@@ -81,19 +79,19 @@ class PhotoAdapter(
     }
 
     companion object PhotoAdapterDiffUtil :
-        DiffUtil.ItemCallback<ObjPhoto>() {
+        DiffUtil.ItemCallback<NasaByIdResponse>() {
         override fun areItemsTheSame(
-            oldItem: ObjPhoto,
-            newItem: ObjPhoto,
+            oldItem: NasaByIdResponse,
+            newItem: NasaByIdResponse,
         ): Boolean {
             return oldItem === newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: ObjPhoto,
-            newItem: ObjPhoto,
+            oldItem: NasaByIdResponse,
+            newItem: NasaByIdResponse,
         ): Boolean {
-            return oldItem.userId == newItem.userId
+            return oldItem.media_type == newItem.media_type
         }
     }
 

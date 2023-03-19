@@ -16,6 +16,17 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+/*
+SingletonComponent bileşeni, @InstallIn anotasyonu kullanılarak belirtilir
+ve uygulama yaşam döngüsü boyunca tek bir örnekte kalacak şekilde tasarlanmıştır.
+Bu bileşenin amacı, uygulamanın herhangi bir yerinde kullanılabilecek tüm bağımlılıkları sağlamak
+ve uygulamanın genel performansını artırmaktır.
+
+Singleton bileşenindeki bağımlılıklar, uygulamanın farklı yerlerinde kullanılabilir.
+Örneğin, bir uygulamanın farklı aktivitelerinde veya farklı fragmanlarda aynı veritabanı erişim katmanını kullanması
+gerekebilir. Bu durumda, SingletonComponent bileşeni kullanılarak veritabanı bağımlılığı bir kez oluşturulabilir
+ve daha sonra tüm aktiviteler veya fragmanlar tarafından kullanılabilir.
+* */
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {

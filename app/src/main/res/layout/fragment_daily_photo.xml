@@ -7,34 +7,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    xmlns:hwads="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.dailyPhoto.DailyPhotoFragment">
-
-    <com.huawei.hms.ads.banner.BannerView
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/hw_banner_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        hwads:adId="testw6vs28auh3"
-        hwads:bannerSize="BANNER_SIZE_360_57"/>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_download"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:src="@drawable/ic_downloading"
-        app:layout_constraintEnd_toStartOf="@id/img_save"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/img_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_success"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,9 +26,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_download"
-        app:layout_constraintStart_toStartOf="parent"
-         />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"  />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/img_content_of_video"

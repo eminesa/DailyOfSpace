@@ -2,7 +2,6 @@ package com.eminesa.dailyofspace.model
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
-import java.util.*
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
