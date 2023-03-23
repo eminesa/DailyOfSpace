@@ -7,15 +7,16 @@ Daily Of Space is show us Nasa's published daily photo. User could download this
 
 ### Tech Stack ⚙️
 - Model View Viewmodel (MVVM) architecture 
+- Coroutine Flow
+- Hilt
 - Navigation Component
-- Live Data
-- Retrofit/Moshi
+- Retrofit 2 / Okhttp3
 - Coil 
 - Lottie 
 - Zoomage 
+- Chucker
 - LeakCanary 
-- Coroutine 
-- Hilt
+
 
 ### Screenshots 📸
 <img width="306" alt="intro_firsth_to_readme" src="https://user-images.githubusercontent.com/27770096/147878539-af12f508-f5a2-4bdf-a191-78db1a8f2208.png">:|:
