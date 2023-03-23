@@ -1,4 +1,4 @@
-package com.eminesa.dailyofspace.activity
+package com.eminesa.dailyofspace.presenters.main
 
 import android.os.Bundle
 import android.widget.Toast
@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding?.root)

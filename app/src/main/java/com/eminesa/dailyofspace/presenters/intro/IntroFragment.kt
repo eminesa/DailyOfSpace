@@ -1,4 +1,4 @@
-package com.eminesa.dailyofspace.fragment.intro
+package com.eminesa.dailyofspace.presenters.intro
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -15,10 +14,11 @@ import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.adapter.IntroAdapter
 import com.eminesa.dailyofspace.databinding.FragmentIntroBinding
 import com.eminesa.dailyofspace.enum.Behavior
+import com.eminesa.dailyofspace.extentions.attachSnapHelperWithListener
+import com.eminesa.dailyofspace.local_storage.LocalStorageService
 import com.eminesa.dailyofspace.model.IntroModel
-import com.eminesa.dailyofspace.util.attachSnapHelperWithListener
-import com.yerli.sosyal.utils.storage.LocaleStorageManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class IntroFragment : Fragment(), OnSnapPositionChangeListener {
@@ -26,6 +26,9 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
     private var introBinding: FragmentIntroBinding? = null
     private var getPosition: Int = 0
     private var adapter: IntroAdapter? = null
+
+    @Inject
+    lateinit var localStorageService: LocalStorageService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +54,7 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
      * Bu fonksiyon kullanılan recyclerview'i ve IntroAdapter'ı initial eder.
      */
     private fun setRecyclerView() {
-         adapter = IntroAdapter()
+        adapter = IntroAdapter()
 
         introBinding?.apply {
             recyclerOnBoarding.adapter = adapter
@@ -84,26 +87,8 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
     }
 
     private fun sendArgument() {
-        LocaleStorageManager.setPreferences("intro", true)
-        if (arguments != null) {
-
-            val date = arguments?.getString("date")
-            val explanation = arguments?.getString("explanation")
-            val title = arguments?.getString("title")
-            val mediaType = arguments?.getString("media_type")
-            val url = arguments?.getString("url")
-
-            findNavController().navigate(
-                R.id.action_introFragment_to_dailyPhotoFragment,
-                bundleOf(
-                    "date" to date,
-                    "explanation" to explanation,
-                    "title" to title,
-                    "mediaType" to mediaType,
-                    "url" to url,
-                )
-            )
-        }
+        localStorageService.setPassIntro(true)
+        findNavController().navigate(R.id.action_introFragment_to_dailyPhotoFragment)
     }
 
     override fun onSnapPositionChange(position: Int) {
@@ -182,6 +167,7 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
     }
 
     override fun onDestroy() {
+        // localStorageService = null
         introBinding?.recyclerOnBoarding?.adapter = null
         adapter = null
         introBinding = null
@@ -189,6 +175,7 @@ class IntroFragment : Fragment(), OnSnapPositionChangeListener {
     }
 
     override fun onDestroyView() {
+        //localStorageService = null
         introBinding?.recyclerOnBoarding?.adapter = null
         adapter = null
         introBinding = null

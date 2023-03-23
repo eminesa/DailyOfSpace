@@ -1,6 +1,6 @@
 package com.eminesa.dailyofspace.adapter
 
-
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,46 +12,40 @@ import coil.load
 import coil.util.CoilUtils
 import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.databinding.LayoutItemPhotoBinding
-import com.eminesa.dailyofspace.model.NasaByIdResponse
+import com.eminesa.dailyofspace.model.DailyImage
+import com.eminesa.dailyofspace.presenters.dailyPhoto.initBottomSheet
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.Dispatchers
 
-/**
- * Bu class engellenmiş ve sessize alınmış listesinin her bir elemanını düzenlenmesini sağlar.
- * @param onShowMoreClickListener  cloud icindeki data bilgilerinin kullaniciya ait olanini getirir getirir
- */
-
-class PhotoAdapter(
-    val onShowMoreClickListener: ((textView: MaterialTextView, item: NasaByIdResponse) -> Unit)?,
-    val itemClickListener: ((view: View, item: NasaByIdResponse) -> Unit)?,
-    val translateListener: ((titleTextView: MaterialTextView, decTextView: MaterialTextView,  item: NasaByIdResponse) -> Unit)?,
-) : ListAdapter<NasaByIdResponse, PhotoAdapter.PhotoAdapterViewHolder>(
+class PhotoAdapter : ListAdapter<DailyImage, PhotoAdapter.PhotoAdapterViewHolder>(
     PhotoAdapterDiffUtil
 ) {
 
     inner class PhotoAdapterViewHolder(var itemBinding: LayoutItemPhotoBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(userItem: NasaByIdResponse) {
+        fun bind(userItem: DailyImage) {
 
             initButtonText(userItem)
         }
     }
 
     private fun PhotoAdapterViewHolder.initButtonText(
-        imageItem: NasaByIdResponse
+        imageItem: DailyImage
     ) {
-        itemBinding.txtDescription.setOnClickListener {
-            onShowMoreClickListener?.let { onOpenListener ->
-                onOpenListener(
-                    itemBinding.txtDescription,
-                    imageItem
-                )
-            }
-        }
-
         itemBinding.apply {
-            txtTitle.text = imageItem.title
-            txtDescription.text = imageItem.explanation
+
+            initBottomSheet(
+                imageItem.title,
+                imageItem.explanation,
+                itemView.context,
+                onShowMoreClickListener = { textView->
+                    if (textView.maxLines < 2) {
+                        textView.ellipsize = null
+                        textView.maxLines = Integer.MAX_VALUE
+                } else {
+                        textView.ellipsize = TextUtils.TruncateAt.END
+                        textView.maxLines = 1
+                }})
 
             if (imageItem.url == "video") {
                 //https://www.youtube.com/embed/VYWjxvm14Pk?rel=0
@@ -79,19 +73,19 @@ class PhotoAdapter(
     }
 
     companion object PhotoAdapterDiffUtil :
-        DiffUtil.ItemCallback<NasaByIdResponse>() {
+        DiffUtil.ItemCallback<DailyImage>() {
         override fun areItemsTheSame(
-            oldItem: NasaByIdResponse,
-            newItem: NasaByIdResponse,
+            oldItem: DailyImage,
+            newItem: DailyImage,
         ): Boolean {
             return oldItem === newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: NasaByIdResponse,
-            newItem: NasaByIdResponse,
+            oldItem: DailyImage,
+            newItem: DailyImage,
         ): Boolean {
-            return oldItem.media_type == newItem.media_type
+            return oldItem.mediaType == newItem.mediaType
         }
     }
 

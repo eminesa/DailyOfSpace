@@ -1,9 +1,9 @@
-package com.eminesa.dailyofspace.fragment.intro
+package com.eminesa.dailyofspace.presenters.intro
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.eminesa.dailyofspace.enum.Behavior
-import com.eminesa.dailyofspace.util.getSnapPosition
+import com.eminesa.dailyofspace.extentions.getSnapPosition
 
 /**
  * Bu class recyclerView scroll olduğunda ekranda en fazla örünen itemi ortalamayı sağlar.

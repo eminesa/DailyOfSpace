@@ -62,9 +62,44 @@
     </style>
 
 
-<!--<item name="android:indeterminateOnly">false </item>-->
     <style name="CircularDeterminateProgressBar">
         <item name="android:progressDrawable">@drawable/custom_progressbar</item>
     </style>
+
+    <style name="TextMedium20sp" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/light_black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:letterSpacing">0.026</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.CardView.Bg.Dark" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/ecru_white</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+        <item name="android:topLeftRadius">20dp</item>
+        <item name="android:topRightRadius">20dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="TextRegularBlackAndWhite17sp" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textColor">@color/light_black</item>
+        <item name="android:textSize">17sp</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <style name="Settings.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="background">@android:color/transparent</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
 
 </resources>

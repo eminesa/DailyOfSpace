@@ -1,19 +1,12 @@
-package com.eminesa.dailyofspace.util
+package com.eminesa.dailyofspace.extentions
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.eminesa.dailyofspace.enum.Behavior
-import com.eminesa.dailyofspace.fragment.intro.OnSnapPositionChangeListener
-import com.eminesa.dailyofspace.fragment.intro.SnapOnScrollListener
-import com.google.android.material.textview.MaterialTextView
+import com.eminesa.dailyofspace.presenters.intro.OnSnapPositionChangeListener
+import com.eminesa.dailyofspace.presenters.intro.SnapOnScrollListener
 
-fun String.getUserName(): String {
-    return "@".plus(this)
-}
 
-fun MaterialTextView.clear() {
-    this.text = ""
-}
 /**
  * Bu extension recyclerView için o anki position bilgisini döner.
  * @param recyclerView position bilgisini döneceğimiz recyclerView

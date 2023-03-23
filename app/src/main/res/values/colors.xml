@@ -12,4 +12,11 @@
     <color name="light_black">#3D454F</color>
     <color name="purple">#67509F</color>
     <color name="ecru">#FFEEEEEE</color>
+    <color name="ecru_white">#FFEEEEEE</color>
+
+    <color name="gray_opacity_25">#40878787</color>
+
+    <color name="bottom_gray_dark">#1D1D1D</color>
+
+    <color name="transparent">#00000000</color>
 </resources>

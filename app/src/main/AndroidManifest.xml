@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DailyOfSpace">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".presenters.main.MainActivity"
             android:theme="@style/LauncherFullScreen"
             android:screenOrientation="portrait"
             android:exported="true">

@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--Adding our first item-->
-    <item>
-        <!--Here ring shape is created. The important attribute
-         used here is, android:useLevel="false". Attribute
-         with the useLevel=true makes the ring disabled, so it must
-         be false for the ring to appear with color code "#DDD"-->
 
+    <item>
         <rotate
             android:fromDegrees="0"
             android:pivotX="50%"
@@ -17,39 +12,15 @@
                 android:dither="true"
                 android:innerRadiusRatio="3"
                 android:shape="ring"
-                android:thickness="2sp"
+                android:thickness="3sp"
                 android:useLevel="true">
 
-                <solid android:color="#FFE76B" />
-
+                <solid android:color="@color/purple" />
 
             </shape>
-
 
         </rotate>
 
     </item>
 
-
-   <!-- Adding our second item
-    <item>
-        &lt;!&ndash;Rotation degree of Ring is made from 270 to 270&ndash;&gt;
-        <rotate
-            android:fromDegrees="270"
-            android:toDegrees="270">
-            &lt;!&ndash;The main attribute used here is android:useLevel="true" in
-             shape tag. Also gradient is added to set the startColor and
-             endColor of the ring.&ndash;&gt;
-            <shape
-                android:shape="ring"
-                android:thicknessRatio="16"
-                android:useLevel="true">
-                <gradient
-                    android:endColor="@color/teal_700"
-                    android:startColor="@color/black"
-                    android:type="sweep" />
-
-            </shape>
-        </rotate>
-    </item>-->
 </layer-list>
