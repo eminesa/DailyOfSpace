@@ -18,5 +18,7 @@
 
     <color name="bottom_gray_dark">#1D1D1D</color>
 
+    <color name="transparent_black">#B3000000</color>
+
     <color name="transparent">#00000000</color>
 </resources>

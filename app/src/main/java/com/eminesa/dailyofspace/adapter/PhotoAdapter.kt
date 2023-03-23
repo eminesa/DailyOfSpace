@@ -37,15 +37,8 @@ class PhotoAdapter : ListAdapter<DailyImage, PhotoAdapter.PhotoAdapterViewHolder
             initBottomSheet(
                 imageItem.title,
                 imageItem.explanation,
-                itemView.context,
-                onShowMoreClickListener = { textView->
-                    if (textView.maxLines < 2) {
-                        textView.ellipsize = null
-                        textView.maxLines = Integer.MAX_VALUE
-                } else {
-                        textView.ellipsize = TextUtils.TruncateAt.END
-                        textView.maxLines = 1
-                }})
+                itemView.context
+                )
 
             if (imageItem.url == "video") {
                 //https://www.youtube.com/embed/VYWjxvm14Pk?rel=0
