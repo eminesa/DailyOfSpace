@@ -60,9 +60,6 @@ class DailyPhotoFragment : Fragment() {
         binding?.initRecyclerView()
         binding?.setOnClickListener()
 
-        val snapHelper: SnapHelper = LinearSnapHelper() // stay on one item
-        snapHelper.attachToRecyclerView(binding?.recyclerViewPhoto)
-
         return binding?.root
     }
 
@@ -76,13 +73,13 @@ class DailyPhotoFragment : Fragment() {
             .onEach { state -> handleStateChange(state) }.launchIn(lifecycleScope)
     }
 
-    private fun handleStateChange(state: HomeViewState) {
+    private fun handleStateChange(state: DailyImageViewState) {
         when (state) {
-            is HomeViewState.Init -> Unit
-            is HomeViewState.Loading -> handleLoading(state.isLoading)
-            is HomeViewState.Success -> handleSuccess(state.data)
-            is HomeViewState.SuccessWithEmptyData -> Unit
-            is HomeViewState.Error -> handleError(state.error)
+            is DailyImageViewState.Init -> Unit
+            is DailyImageViewState.Loading -> handleLoading(state.isLoading)
+            is DailyImageViewState.Success -> handleSuccess(state.data)
+            is DailyImageViewState.SuccessWithEmptyData -> Unit
+            is DailyImageViewState.Error -> handleError(state.error)
         }
     }
 
@@ -157,8 +154,13 @@ class DailyPhotoFragment : Fragment() {
 
     private fun FragmentDailyPhotoBinding.initRecyclerView() {
         recyclerViewPhoto.apply {
+
             setHasFixedSize(false)
             adapter = photoAdapter
+
+            // stay on more visible item
+            val snapHelper: SnapHelper = LinearSnapHelper()
+            snapHelper.attachToRecyclerView(this)
         }
     }
 

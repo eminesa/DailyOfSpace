@@ -16,11 +16,11 @@ class DailyImageFragmentViewModel @Inject constructor(
     private val getMoviesUseCase: GetDailyImageUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<HomeViewState>(HomeViewState.Init)
-    fun getViewState(): StateFlow<HomeViewState> = _state.asStateFlow()
+    private val _state = MutableStateFlow<DailyImageViewState>(DailyImageViewState.Init)
+    fun getViewState(): StateFlow<DailyImageViewState> = _state.asStateFlow()
 
     private fun setLoading(isLoading: Boolean) {
-        _state.value = HomeViewState.Loading(isLoading)
+        _state.value = DailyImageViewState.Loading(isLoading)
     }
 
     fun getDailyImage(key: String?) {
@@ -29,15 +29,15 @@ class DailyImageFragmentViewModel @Inject constructor(
                 when (result) {
                     is Resource.Error -> {
                         setLoading(false)
-                        _state.value = HomeViewState.Error(result.message)
+                        _state.value = DailyImageViewState.Error(result.message)
                     }
                     is Resource.Loading -> setLoading(true)
                     is Resource.Success -> {
                         setLoading(false)
                         if (result.data == null) {
-                            _state.value = HomeViewState.SuccessWithEmptyData
+                            _state.value = DailyImageViewState.SuccessWithEmptyData
                         } else {
-                            _state.value = HomeViewState.Success(result.data)
+                            _state.value = DailyImageViewState.Success(result.data)
                         }
                     }
                 }
@@ -45,12 +45,4 @@ class DailyImageFragmentViewModel @Inject constructor(
         }
     }
 
-}
-
-sealed class HomeViewState {
-    object Init : HomeViewState()
-    data class Loading(val isLoading: Boolean) : HomeViewState()
-    data class Success(val data: DailyImage) : HomeViewState()
-    object SuccessWithEmptyData : HomeViewState()
-    data class Error(val error: UiText) : HomeViewState()
 }

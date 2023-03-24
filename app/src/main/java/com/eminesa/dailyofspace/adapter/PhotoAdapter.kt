@@ -1,8 +1,6 @@
 package com.eminesa.dailyofspace.adapter
 
-import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
@@ -14,13 +12,17 @@ import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.databinding.LayoutItemPhotoBinding
 import com.eminesa.dailyofspace.model.DailyImage
 import com.eminesa.dailyofspace.presenters.dailyPhoto.initBottomSheet
-import com.google.android.material.textview.MaterialTextView
 import kotlinx.coroutines.Dispatchers
 
 class PhotoAdapter : ListAdapter<DailyImage, PhotoAdapter.PhotoAdapterViewHolder>(
     PhotoAdapterDiffUtil
 ) {
-
+    /*
+    Inner classlar, bir sınıfın içinde başka bir sınıfın tanımlanmasıdır.
+    Inner classlar, dış sınıfın özelliklerine ve yöntemlerine erişebilirler
+    Genellikle dış sınıfın özelliklerini birleştiren bir yapıya sahiptirler.
+    Inner classlar, kod organizasyonu ve sınıf tasarımı açısından kullanışlıdır.
+     */
     inner class PhotoAdapterViewHolder(var itemBinding: LayoutItemPhotoBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(userItem: DailyImage) {
@@ -38,7 +40,7 @@ class PhotoAdapter : ListAdapter<DailyImage, PhotoAdapter.PhotoAdapterViewHolder
                 imageItem.title,
                 imageItem.explanation,
                 itemView.context
-                )
+            )
 
             if (imageItem.url == "video") {
                 //https://www.youtube.com/embed/VYWjxvm14Pk?rel=0
