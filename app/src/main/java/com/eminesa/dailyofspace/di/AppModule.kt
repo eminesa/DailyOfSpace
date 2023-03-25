@@ -34,22 +34,4 @@ object AppModule {
             Activity.MODE_PRIVATE
         )
 
-   /* @Provides
-    @Singleton
-    fun provideMovieDatabase(app: Application, gson: Gson): MovieDatabase {
-        return Room.databaseBuilder(app, MovieDatabase::class.java, "movie_db")
-            .addTypeConverter(DatabaseConverters(GsonParser(gson)))
-            .fallbackToDestructiveMigration()
-            .build()
-    }
-
-     @Provides
-    @Singleton
-    fun provideDao(db: MovieDatabase): MovieDao = db.dao
-
-     @Provides
-    @Singleton
-    fun provideMovieMapper(): MovieMapper = MovieMapper()
-*/
-
 }

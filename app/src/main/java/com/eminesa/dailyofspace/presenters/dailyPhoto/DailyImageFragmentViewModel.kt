@@ -2,10 +2,8 @@ package com.eminesa.dailyofspace.presenters.dailyPhoto
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eminesa.dailyofspace.model.DailyImage
 import com.eminesa.dailyofspace.use_case.GetDailyImageUseCase
 import com.eminesa.dailyofspace.util.Resource
-import com.eminesa.dailyofspace.util.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -13,19 +11,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DailyImageFragmentViewModel @Inject constructor(
-    private val getMoviesUseCase: GetDailyImageUseCase
+    private val getDailyImageUseCase: GetDailyImageUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<DailyImageViewState>(DailyImageViewState.Init)
     fun getViewState(): StateFlow<DailyImageViewState> = _state.asStateFlow()
 
-    private fun setLoading(isLoading: Boolean) {
+    fun setLoading(isLoading: Boolean) {
         _state.value = DailyImageViewState.Loading(isLoading)
     }
 
     fun getDailyImage(key: String?) {
         viewModelScope.launch {
-            getMoviesUseCase.getDailyImage(key).onEach { result ->
+            getDailyImageUseCase.getDailyImage(key).onEach { result ->
                 when (result) {
                     is Resource.Error -> {
                         setLoading(false)
