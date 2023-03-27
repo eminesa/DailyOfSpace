@@ -14,13 +14,11 @@ android {
         minSdk 22
         targetSdk 33
         versionCode 2
-        versionName "1.0.1"
-
+        versionName "1.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
-        dataBinding true
         viewBinding true
     }
 
@@ -36,7 +34,7 @@ android {
             buildConfigField "String", "API_KEY", "\"662e2815a88732986f77e82fd5dccde2\""
             buildConfigField "String", "YOUTUBE_API_KEY", "\"AIzaSyDuEL7hFHfLtAzd8_2M9drmsMLkRHrIBA4\""
             buildConfigField "String", "PASS_INTRO", "\"intro\""
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -68,12 +66,10 @@ dependencies {
     testImplementation 'org.mockito.kotlin:mockito-kotlin:4.1.0'
     testImplementation "com.google.truth:truth:1.1.3"
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
-
-    //
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 
-    // youtube api key implementation
+    // Youtube api key implementation
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
     // Retrofit
@@ -94,6 +90,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$version_lifecycle"
 
+    //Dependency Injection
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
@@ -101,16 +98,16 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
 
-    // coil for set image
-    implementation("io.coil-kt:coil:1.1.1")
+    // Coil for set image
+    implementation "io.coil-kt:coil:1.1.1"
 
-    // for splash screen gif
+    // For splash screen gif
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
-    // image
+    // image zoom in and zoom out
     implementation 'com.jsibbold:zoomage:1.3.1'
 
-    // for memory leak in debug control
+    // For memory leak in debug control
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 
     // Chucker

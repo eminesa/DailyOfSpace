@@ -1,8 +1,12 @@
 package com.eminesa.dailyofspace.model
 
+ import android.os.Parcelable
  import com.google.gson.annotations.SerializedName
+ import kotlinx.parcelize.Parcelize
+ import java.util.*
 
- data class DailyImage(
+@Parcelize
+data class DailyImage(
 
     @SerializedName( "copyright")
     val copyright: String? = null,
@@ -28,4 +32,4 @@ package com.eminesa.dailyofspace.model
     @SerializedName("url")
     val url: String? = null,
 
-)
+):Parcelable
