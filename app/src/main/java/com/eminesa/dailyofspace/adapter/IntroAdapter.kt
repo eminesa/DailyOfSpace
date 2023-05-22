@@ -12,7 +12,6 @@ import com.eminesa.dailyofspace.model.IntroModel
 import kotlinx.coroutines.Dispatchers
 
 class IntroAdapter : ListAdapter<IntroModel, IntroAdapter.IntroViewHolder>(IntroDiffUtil) {
-
     companion object IntroDiffUtil : DiffUtil.ItemCallback<IntroModel>() {
         override fun areItemsTheSame(
             oldItem: IntroModel,

@@ -22,6 +22,9 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 /*
+@Module annotasyonuyla bağımlılıkları sağladığımız yani nesneleri oluşturduğumuz sınıflarımızın en başına eklenir.
+
+@InstallIn annotasyonu ise modulün hangi component üzerinde bulunmasını istediğimizi belirtiriz. Componentlerin bir lifecycle’ı bulunmaktadır.
 SingletonComponent bileşeni, @InstallIn anotasyonu kullanılarak belirtilir
 ve uygulama yaşam döngüsü boyunca tek bir örnekte kalacak şekilde tasarlanmıştır.
 Bu bileşenin amacı, uygulamanın herhangi bir yerinde kullanılabilecek tüm bağımlılıkları sağlamak
@@ -30,7 +33,7 @@ ve uygulamanın genel performansını artırmaktır.
 Singleton bileşenindeki bağımlılıklar, uygulamanın farklı yerlerinde kullanılabilir.
 Örneğin, bir uygulamanın farklı aktivitelerinde veya farklı fragmanlarda aynı veritabanı erişim katmanını kullanması
 gerekebilir. Bu durumda, SingletonComponent bileşeni kullanılarak veritabanı bağımlılığı bir kez oluşturulabilir
-ve daha sonra tüm aktiviteler veya fragmanlar tarafından kullanılabilir.
+ve daha sonra tüm aktiviteler veya fragmanlar tarafından @Inject annotasyonuyla kullanılabilir.
 * */
 @Module
 @InstallIn(SingletonComponent::class)
@@ -42,7 +45,7 @@ object NetworkModule {
      * @return CertificatePinner
      */
     @Singleton
-    @Provides
+    @Provides //@Provides annotasyonu modullerde nesneleri bağımlılık olarak tanımlamak için oluşturduğumuz methodların üzerinde kullanılır.
     fun certificatePinner() = CertificatePinner.Builder()
         .add("", "")// istenen SHA eklenir
         .build()

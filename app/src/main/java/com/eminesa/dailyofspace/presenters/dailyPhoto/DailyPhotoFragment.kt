@@ -57,6 +57,7 @@ class DailyPhotoFragment : Fragment() {
         )
 
         initialAdapter()
+
         binding?.initRecyclerView()
         binding?.setOnClickListener()
 

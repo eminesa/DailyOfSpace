@@ -5,7 +5,7 @@ import com.eminesa.dailyofspace.model.ErrorDto
 import com.eminesa.dailyofspace.model.toErrorModel
 import com.eminesa.dailyofspace.util.UiText
 import com.google.gson.Gson
-  import retrofit2.HttpException
+import retrofit2.HttpException
 
 val gson = Gson()
 
