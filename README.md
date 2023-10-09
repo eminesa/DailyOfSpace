@@ -6,16 +6,38 @@ Daily Of Space is show us Nasa's published daily photo. User could download this
 - Apod: One of the most popular websites at NASA is the Astronomy Picture of the Day. 
 
 ### Tech Stack ⚙️
-- Model View Viewmodel (MVVM) architecture 
-- Coroutine Flow
-- Hilt
-- Navigation Component
-- Retrofit 2 / Okhttp3
-- Coil 
-- Lottie 
-- Zoomage 
-- Chucker
-- LeakCanary 
+
+**Model View Viewmodel (MVVM) architecture:** 
+The app is structured around the MVVM architecture, where the Model represents the data and business logic, the View handles UI rendering, and the ViewModel acts as a mediator between them. MVVM ensures a clean separation of concerns and enables efficient unit testing.
+
+**Coroutine-Flow:** 
+Coroutines and Flow are used for asynchronous operations, allowing for smooth and non-blocking execution of tasks. They are essential for handling background processes and managing concurrency in the app.
+
+**Hilt:** 
+Hilt is employed for dependency injection, simplifying the management of dependencies and promoting code modularity. It enhances code readability and maintainability.
+
+**Navigation Component:** 
+Navigation Component is used to handle navigation between different screens and components within the app. It streamlines navigation logic and simplifies the user experience.
+
+**Retrofit 2 / Okhttp3:** 
+Retrofit 2 and Okhttp3 are utilized for efficient network communication, making API requests and responses seamless. They ensure reliable and performant data exchange between the app and the server.
+
+**Coil:** 
+Coil is the go-to library for image loading, optimizing the loading and caching of images, and enhancing the app's overall performance.
+
+**Lottie:** 
+Lottie is integrated to bring animations to life within the app, creating engaging and visually appealing user experiences.
+
+**Zoomage:** 
+Zoomage enhances image viewing capabilities, allowing users to zoom in and out of images with ease, improving the overall user experience.
+
+**Chucker:** 
+Chucker is a valuable tool for debugging network requests, providing insights into network interactions and helping identify and resolve issues efficiently.
+
+**LeakCanary:** 
+LeakCanary is used for detecting and monitoring memory leaks, ensuring that the app maintains optimal memory usage and performance.
+
+Each of these technologies plays a vital role in enhancing the functionality, performance, and maintainability of the Android app, contributing to an overall superior user experience.
 
 
 ### Screenshots 📸
