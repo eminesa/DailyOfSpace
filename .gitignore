@@ -1,6 +1,7 @@
 *.iml
 .gradle
 .idea/
+.gitignore
 /local.properties
 /.idea/caches
 /.idea/libraries
@@ -14,3 +15,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+private_key.pepk
