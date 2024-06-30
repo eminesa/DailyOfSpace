@@ -8,7 +8,6 @@ class ImageRepositoryImpl @Inject constructor(
     private val api: ApiService,
     // private val dao: ImageDao,
     // private val mapper: ImageMapper
-) :
-    ImageRepository {
+) : ImageRepository {
     override suspend fun getDailyPhoto(key: String?): DailyImage = api.getDailyPhoto(key)
 }

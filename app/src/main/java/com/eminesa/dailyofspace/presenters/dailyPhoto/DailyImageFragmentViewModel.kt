@@ -1,16 +1,15 @@
 package com.eminesa.dailyofspace.presenters.dailyPhoto
 
-import android.media.Image
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.eminesa.dailyofspace.network.ImageRepository
 import com.eminesa.dailyofspace.use_case.GetDailyImageUseCase
 import com.eminesa.dailyofspace.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,6 +33,7 @@ class DailyImageFragmentViewModel @Inject constructor(
                         setLoading(false)
                         _state.value = DailyImageViewState.Error(result.message)
                     }
+
                     is Resource.Loading -> setLoading(true)
                     is Resource.Success -> {
                         setLoading(false)
