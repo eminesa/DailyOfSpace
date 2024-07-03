@@ -23,12 +23,13 @@ Want to have the app? So download [DailyofSpace.apk](https://github.com/eminesa/
 - **[Navigation Component](https://developer.android.com/guide/navigation)**
 - **[Retrofit 2 / Okhttp3](https://square.github.io/retrofit/)**
 - **[Coil](https://coil-kt.github.io/coil/)**
+- **[IFrame Player API](https://developers.google.com/youtube/iframe_api_reference)**
 - **[Lottie](https://airbnb.io/lottie/#/)**
 - **[Zoomage](https://github.com/jsibbold/zoomage)**
 - **[Chucker](https://github.com/ChuckerTeam/chucker)**
 - **[LeakCanary](https://square.github.io/leakcanary/)** 
 
-Each of these technologies plays a vital role in enhancing the functionality, performance, and maintainability of the Android app, contributing to an overall superior user experience.
+Each of these technologies plays a vital role in enhancing the Android app's functionality, performance, and maintainability, contributing to an overall superior user experience.
 
 
 
