@@ -1,5 +1,6 @@
 package com.eminesa.dailyofspace.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -11,18 +12,13 @@ import coil.util.CoilUtils
 import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.databinding.LayoutItemPhotoBinding
 import com.eminesa.dailyofspace.model.DailyImage
+import com.eminesa.dailyofspace.presenters.VideoViewActivity
 import com.eminesa.dailyofspace.presenters.dailyPhoto.initBottomSheet
 import kotlinx.coroutines.Dispatchers
 
 class PhotoAdapter : ListAdapter<DailyImage, PhotoAdapter.PhotoAdapterViewHolder>(
     PhotoAdapterDiffUtil
 ) {
-    /*
-    Inner classlar, bir sınıfın içinde başka bir sınıfın tanımlanmasıdır.
-    Inner classlar, dış sınıfın özelliklerine ve yöntemlerine erişebilirler
-    Genellikle dış sınıfın özelliklerini birleştiren bir yapıya sahiptirler.
-    Inner classlar, kod organizasyonu ve sınıf tasarımı açısından kullanışlıdır.
-     */
     inner class PhotoAdapterViewHolder(var itemBinding: LayoutItemPhotoBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(userItem: DailyImage) {
@@ -36,25 +32,43 @@ class PhotoAdapter : ListAdapter<DailyImage, PhotoAdapter.PhotoAdapterViewHolder
     ) {
         itemBinding.apply {
 
-            initBottomSheet(
-                imageItem.title,
-                imageItem.explanation,
-                itemView.context
-            )
+            //imageItem.mediaType = "video"
+            //imageItem.url = "https://www.youtube.com/embed/VYWjxvm14Pk?rel=0"
 
-            if (imageItem.url == "video") {
-                //https://www.youtube.com/embed/VYWjxvm14Pk?rel=0
+            var isClicked = false
+            txtTitle.text = imageItem.title
+            txtDescription.text = imageItem.explanation
+
+            txtDescription.setOnClickListener {
+                if (!isClicked) {
+                    setVisibility(false)
+                    isClicked = true
+
+                    initBottomSheet(
+                        onClicked = {
+                            setVisibility(true)
+                            isClicked = false
+                        },
+                        imageItem.title,
+                        imageItem.explanation,
+                        itemView.context
+                    )
+                }
+            }
+
+            if (imageItem.mediaType == "video") {
                 imgSpace.isVisible = false
-                imgContentOfVideo.isVisible = true
-                constraintInfo.isVisible = false
+                openVideoButton.isVisible = true
+                setVisibility(true)
+                openVideoButton.setOnClickListener {
+                    val intent = Intent(itemView.context, VideoViewActivity::class.java)
+                    intent.putExtra("daily_image", imageItem)
+                    itemView.context.startActivity(intent)
+                }
 
-                //url?.let { initUI(it) }
-                //   val youtubePlayerInit = url?.let { initUI(it) }
-                //   binding?.youtubePlayer?.initialize(youtubeApiKey, youtubePlayerInit)
             } else {
-
+                openVideoButton.isVisible = false
                 imgSpace.isVisible = true
-                imgContentOfVideo.isVisible = false
 
                 imgSpace.load(imageItem.url) {
                     allowRgb565(true)
@@ -66,6 +80,12 @@ class PhotoAdapter : ListAdapter<DailyImage, PhotoAdapter.PhotoAdapterViewHolder
             }
         }
     }
+
+    private fun LayoutItemPhotoBinding.setVisibility(isVisible: Boolean) {
+        txtTitle.isVisible = isVisible
+        txtDescription.isVisible = isVisible
+    }
+
 
     companion object PhotoAdapterDiffUtil :
         DiffUtil.ItemCallback<DailyImage>() {

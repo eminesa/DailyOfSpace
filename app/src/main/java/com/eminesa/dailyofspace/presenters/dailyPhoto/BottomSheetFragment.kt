@@ -2,12 +2,14 @@ package com.eminesa.dailyofspace.presenters.dailyPhoto
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import com.eminesa.dailyofspace.R
 import com.eminesa.dailyofspace.databinding.LayoutBottomSheetDetailBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 fun initBottomSheet(
+    onClicked: (clicked: Boolean) -> Unit,
     title: String?,
     desc: String?,
     context: Context,
@@ -16,19 +18,31 @@ fun initBottomSheet(
     val bottomSheetBinding = LayoutBottomSheetDetailBinding.inflate(LayoutInflater.from(context))
     bottomSheetDialog.setContentView(bottomSheetBinding.root)
     bottomSheetDialog.window?.setBackgroundDrawableResource(R.color.transparent)
-    bottomSheetDialog.setCancelable(false) // Ekrana tıklanıldığında bottom sheet'in kapanmasını önler
+    bottomSheetDialog.setCancelable(false)
 
     bottomSheetDialog.behavior.apply {
         isFitToContents = true
-        peekHeight = 300
         state = BottomSheetBehavior.STATE_COLLAPSED
-        isHideable = false
+        isHideable = true
     }
 
     bottomSheetBinding.apply {
         titleTextView.text = title
         descriptionTextView.text = desc
     }
+
+    bottomSheetDialog.behavior.addBottomSheetCallback(object :
+        BottomSheetBehavior.BottomSheetCallback() {
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                onClicked(true)
+            }
+        }
+
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            // İhtiyacınıza göre burada da bir işlem yapabilirsiniz
+        }
+    })
 
     bottomSheetDialog.show()
 }

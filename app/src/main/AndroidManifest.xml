@@ -14,17 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DailyOfSpace">
         <activity
+            android:name=".presenters.VideoViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".presenters.main.MainActivity"
-            android:theme="@style/LauncherFullScreen"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:theme="@style/LauncherFullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
