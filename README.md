@@ -9,10 +9,13 @@ Want to have the app? So download [DailyofSpace.apk](https://github.com/eminesa/
 
 ### Screenshots 📸
 <p align="center">
-  <img width="306" alt="intro_firsth_to_readme" src="https://user-images.githubusercontent.com/27770096/147878539-af12f508-f5a2-4bdf-a191-78db1a8f2208.png">
-  <img width="306" alt="intro_third_to_readme" src="https://user-images.githubusercontent.com/27770096/147878557-b7c11833-09d4-42db-a4dc-9ad4dbe84730.png">
-  <img width="306" alt="intro_second_to_readme" src="https://user-images.githubusercontent.com/27770096/147878545-7c211c92-b31f-4fc1-828b-4fb11d421da2.png">
-  <img width="306" alt="home" src="https://user-images.githubusercontent.com/27770096/147878716-7afa952d-fa91-40e9-97df-9b1bebc225ec.png">
+
+<img width="306" alt="Intro Page 1" src="https://github.com/eminesa/DailyOfSpace/assets/27770096/49738d7e-9e48-4e47-99bb-c966b9011ad1">
+<img width="306" alt="Intro Page 2" src="https://github.com/eminesa/DailyOfSpace/assets/27770096/6871a3d4-a7e3-4a78-8db9-ddd50496af43">
+<img width="306" alt="Intro Page 3" src="https://github.com/eminesa/DailyOfSpace/assets/27770096/27a60322-50b4-476c-be52-79dcb69f35f5">
+<img width="306" alt="dos" src="https://github.com/eminesa/DailyOfSpace/assets/27770096/1a208cbd-5941-4e8a-81e6-7f22ee051ef6"> 
+<img width="306" alt="dos" src="https://github.com/eminesa/DailyOfSpace/assets/27770096/6ecc3a2c-4646-4df0-afb6-7735e671e462"> 
+
 </p>
 
 ### Tech Stack ⚙️
