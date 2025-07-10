@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.eminesa.dailyofspace.presenters.splash.SplashFragment"
+        android:name="com.eminesa.photoofspace.presenters.splash.SplashFragment"
         android:label="SplashFragment">
         <action
             android:id="@+id/action_splashFragment_to_dailyPhotoFragment"
@@ -25,15 +25,14 @@
 
     <fragment
         android:id="@+id/dailyPhotoFragment"
-        android:name="com.eminesa.dailyofspace.presenters.dailyPhoto.DailyPhotoFragment"
+        android:name="com.eminesa.photoofspace.presenters.dailyPhoto.DailyPhotoFragment"
         android:label="fragment_daily_photo"
         tools:layout="@layout/fragment_daily_photo" />
     <fragment
         android:id="@+id/introFragment"
-        android:name="com.eminesa.dailyofspace.presenters.intro.IntroFragment"
+        android:name="com.eminesa.photoofspace.presenters.intro.IntroFragment"
         android:label="fragment_intro"
         tools:layout="@layout/fragment_intro">
-
 
         <action
             android:id="@+id/action_introFragment_to_dailyPhotoFragment"

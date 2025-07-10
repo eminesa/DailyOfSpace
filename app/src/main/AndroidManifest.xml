@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.eminesa.dailyofspace">
+    package="com.eminesa.photoofspace">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".base.AppName"
@@ -14,10 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DailyOfSpace">
         <activity
-            android:name=".presenters.VideoViewActivity"
+            android:name="com.eminesa.photoofspace.presenters.VideoViewActivity"
             android:exported="false" />
         <activity
-            android:name=".presenters.main.MainActivity"
+            android:name="com.eminesa.photoofspace.presenters.main.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/LauncherFullScreen">

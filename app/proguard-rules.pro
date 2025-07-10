@@ -21,52 +21,52 @@
 #-renamesourcefileattribute SourceFile
 
 # ProGuard rules for app
--dontwarn com.eminesa.dailyofspace.**
--keep class com.eminesa.dailyofspace.base.AppName { *; }
+-dontwarn com.eminesa.photoofspace.**
+-keep class com.eminesa.photoofspace.base.AppName { *; }
 
 # Hilt rules
 -dontwarn javax.annotation.**
 -keep class androidx.lifecycle.** { *; }
 -keep class androidx.lifecycle.ViewModel { *; }
 #Hilt classes
--keep class com.eminesa.dailyofspace.di.UseCaseModule{ *; }
--keep class com.eminesa.dailyofspace.di.ServiceModule{ *; }
--keep class com.eminesa.dailyofspace.di.RepositoryModule{ *; }
--keep class com.eminesa.dailyofspace.di.AppModule{ *; }
--keep class com.eminesa.dailyofspace.di.NetworkModule{ *; }
+-keep class com.eminesa.photoofspace.di.UseCaseModule{ *; }
+-keep class com.eminesa.photoofspace.di.ServiceModule{ *; }
+-keep class com.eminesa.photoofspace.di.RepositoryModule{ *; }
+-keep class com.eminesa.photoofspace.di.AppModule{ *; }
+-keep class com.eminesa.photoofspace.di.NetworkModule{ *; }
 -keepclassmembers class * {
     @javax.inject.Inject <init>(...);
 }
 
 # ViewModel rules
--keep class com.eminesa.dailyofspace.presenters.dailyPhoto.DailyImageFragmentViewModel{ *; }
+-keep class com.eminesa.photoofspace.presenters.dailyPhoto.DailyImageFragmentViewModel{ *; }
 -keepclassmembers class * extends androidx.lifecycle.ViewModel {
     <init>();
 }
 
 # All app class rules
--keep class com.eminesa.dailyofspace.adapter.IntroAdapter { *; }
--keep class com.eminesa.dailyofspace.adapter.PhotoAdapter { *; }
--keep class com.eminesa.dailyofspace.model.DailyImage { *; }
--keep class com.eminesa.dailyofspace.model.ErrorDto { *; }
--keep class com.eminesa.dailyofspace.model.ErrorDtoKt { *; }
--keep class com.eminesa.dailyofspace.model.ErrorModel { *; }
--keep class com.eminesa.dailyofspace.model.IntroModel { *; }
--keep class com.eminesa.dailyofspace.local_storage.LocalStorageService { *; }
--keep interface com.eminesa.dailyofspace.local_storage.KeyValueStore { *; }
--keep class com.eminesa.dailyofspace.local_storage.SharedPreferencesKeyValueStore { *; }
--keep interface com.eminesa.dailyofspace.network.ImageRepository { *; }
--keep interface com.eminesa.dailyofspace.network.ApiService { *; }
--keep class com.eminesa.dailyofspace.network.ImageRepositoryImpl { *; }
--keep class com.eminesa.dailyofspace.presenters.main.MainActivity { *; }
--keep class com.eminesa.dailyofspace.presenters.splash.SplashFragment { *; }
--keep class com.eminesa.dailyofspace.presenters.dailyPhoto.DailyPhotoFragment { *; }
--keep class com.eminesa.dailyofspace.presenters.dailyPhoto.DailyImageViewState { *; }
--keep class com.eminesa.dailyofspace.presenters.intro.IntroFragment { *; }
--keep class com.eminesa.dailyofspace.presenters.intro.SnapOnScrollListener { *; }
--keep interface com.eminesa.dailyofspace.presenters.intro.OnSnapPositionChangeListener { *; }
--keep interface com.eminesa.dailyofspace.use_case.GetDailyImageUseCase { *; }
--keep class com.eminesa.dailyofspace.use_case.GetDailyImageUseCaseImpl { *; }
+-keep class com.eminesa.photoofspace.adapter.IntroAdapter { *; }
+-keep class com.eminesa.photoofspace.adapter.PhotoAdapter { *; }
+-keep class com.eminesa.photoofspace.model.DailyImage { *; }
+-keep class com.eminesa.photoofspace.model.ErrorDto { *; }
+-keep class com.eminesa.photoofspace.model.ErrorDtoKt { *; }
+-keep class com.eminesa.photoofspace.model.ErrorModel { *; }
+-keep class com.eminesa.photoofspace.model.IntroModel { *; }
+-keep class com.eminesa.photoofspace.local_storage.LocalStorageService { *; }
+-keep interface com.eminesa.photoofspace.local_storage.KeyValueStore { *; }
+-keep class com.eminesa.photoofspace.local_storage.SharedPreferencesKeyValueStore { *; }
+-keep interface com.eminesa.photoofspace.network.ImageRepository { *; }
+-keep interface com.eminesa.photoofspace.network.ApiService { *; }
+-keep class com.eminesa.photoofspace.network.ImageRepositoryImpl { *; }
+-keep class com.eminesa.photoofspace.presenters.main.MainActivity { *; }
+-keep class com.eminesa.photoofspace.presenters.splash.SplashFragment { *; }
+-keep class com.eminesa.photoofspace.presenters.dailyPhoto.DailyPhotoFragment { *; }
+-keep class com.eminesa.photoofspace.presenters.dailyPhoto.DailyImageViewState { *; }
+-keep class com.eminesa.photoofspace.presenters.intro.IntroFragment { *; }
+-keep class com.eminesa.photoofspace.presenters.intro.SnapOnScrollListener { *; }
+-keep interface com.eminesa.photoofspace.presenters.intro.OnSnapPositionChangeListener { *; }
+-keep interface com.eminesa.photoofspace.use_case.GetDailyImageUseCase { *; }
+-keep class com.eminesa.photoofspace.use_case.GetDailyImageUseCaseImpl { *; }
 
 #Retrofit roles
 -dontwarn okio.**

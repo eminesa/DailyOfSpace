@@ -7,35 +7,38 @@ plugins {
 }
 
 android {
-    compileSdk 34
+    namespace 'com.eminesa.photoofspace'
+    compileSdk 35
 
     defaultConfig {
-        applicationId "com.eminesa.dailyofspace"
-        minSdk 22
-        targetSdk 34
-        versionCode 2
-        versionName "1.0.2"
+        applicationId "com.eminesa.photoofspace"
+        minSdk 27
+        targetSdk 35
+        versionCode 6
+        versionName "1.0.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
+        buildConfig true
         viewBinding true
     }
 
     buildTypes {
         debug {
             buildConfigField "String", "BASE_URL", "\"https://api.nasa.gov/planetary/\""
-            buildConfigField "String", "API_KEY", "\"da2QThPK0PiunpjTKv6NUE67Od0L8E78ntl3GuOR\""
+            buildConfigField "String", "API_KEY", "\"f2FGqyH7BGapeaIGtzuGyKp4FFtZ978Qj10xmNAz\""
             buildConfigField "String", "YOUTUBE_API_KEY", "\"AIzaSyDuEL7hFHfLtAzd8_2M9drmsMLkRHrIBA4\""
             buildConfigField "String", "PASS_INTRO", "\"intro\""
         }
         release {
             buildConfigField "String", "BASE_URL", "\"https://api.nasa.gov/planetary/\""
-            buildConfigField "String", "API_KEY", "\"662e2815a88732986f77e82fd5dccde2\""
+            buildConfigField "String", "API_KEY", "\"f2FGqyH7BGapeaIGtzuGyKp4FFtZ978Qj10xmNAz\""
             buildConfigField "String", "YOUTUBE_API_KEY", "\"AIzaSyDuEL7hFHfLtAzd8_2M9drmsMLkRHrIBA4\""
             buildConfigField "String", "PASS_INTRO", "\"intro\""
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -48,6 +51,13 @@ android {
     }
 }
 
+kapt {
+    javacOptions {
+        option("-source", "1.8")
+        option("-target", "1.8")
+    }
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -55,7 +65,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.activity:activity:1.8.0'
+    implementation 'androidx.activity:activity-ktx:1.10.1'
     testImplementation 'junit:junit:'
     testImplementation 'org.junit.jupiter:junit-jupiter'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
